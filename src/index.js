@@ -12,7 +12,16 @@ const reducer = (state = {jobs: []}, action) => {
 
   switch(action.type) {
     case 'LOAD_JOBS':
-      return {jobs: action.jobs}
+      return {...state, jobs: action.jobs}
+    case 'TOGGLE_SHOW_MORE':
+      return {...state, jobs: state.jobs.map((job) => {
+        if (action.id === job.id) {
+          return {...job, show_more: !job.show_more}
+        } else {
+          return job
+        }
+      })
+    }
     default:
       return state
   }
