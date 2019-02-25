@@ -1,5 +1,6 @@
 import React from 'react'
 import Job from './Job.js'
+import { connect } from 'react-redux'
 
 const JobsContainer = (props) => {
   return (
@@ -29,6 +30,12 @@ const JobsContainer = (props) => {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    jobs: state.jobs
+  }
+}
 
 
-export default JobsContainer
+
+export default connect(mapStateToProps)(JobsContainer)

@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import JobsContainer from './JobsContainer.js'
+import NewJobForm from './NewJobForm.js'
 import { connect } from 'react-redux'
 
 class App extends Component {
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/jobs')
+    fetch(`http://localhost:3001/api/v1/users/${this.props.currentUserId}`)
       .then(res => res.json())
-      .then(fetchedJobs => {
-        this.props.loadJobs(fetchedJobs)
+      .then(userData => {
+        this.props.loadJobs(userData.jobs)
       })
   }
 
@@ -21,7 +22,11 @@ class App extends Component {
           <h1 style={{textAlign: 'center'}}>
             My Job Board
           </h1>
-          <JobsContainer jobs={this.props.jobs}/>
+          <button onClick={() => this.props.handleNewFormClick()}>Add job listing </button>
+          {this.props.showNewForm &&
+            <NewJobForm />
+          }
+          <JobsContainer />
         </header>
       </div>
     );
@@ -29,12 +34,16 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {jobs: state.jobs}
+  return {
+    currentUserId: state.currentUserId,
+    showNewForm: state.showNewJobForm
+  }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadJobs: (jobs) => dispatch({ type: 'LOAD_JOBS', jobs: jobs})
+    loadJobs: (jobs) => dispatch({ type: 'LOAD_JOBS', jobs: jobs }),
+    handleNewFormClick: () => dispatch({ type: 'HANDLE_NEW_FORM_CLICK' })
   }
 }
 
