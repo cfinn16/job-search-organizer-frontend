@@ -4,54 +4,35 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux'
+import { createStore, applyMiddleware,} from 'redux'
 import { combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
 const jobs = (state = [], action) => {
   switch(action.type) {
     case 'LOAD_JOBS':
       return action.jobs
-    case 'TOGGLE_SHOW_MORE':
-      return state.map((job) => {
-        if (action.id === job.id) {
-          return {...job, show_more: !job.show_more}
-        } else {
-          return job
-        }
-      })
     case 'ADD_NEW_JOB':
       return [...state, action.newJob]
-      fetch(`http://localhost:3001/api/v1/jobs`, {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': "application/json",
-          'Accept': "application/json"
-        },
-        body: JSON.stringify({
-          title: action.newJob.title,
-          company: action.newJob.company,
-          years_experience: action.newJob.years_experience,
-          salary: action.newJob.salary,
-          contact_email: action.newJob.contact_email,
-          description: action.newJob.description,
-          show_more: false
-        })
+    case 'DELETE_JOB':
+      return state.filter(job => job.id !== action.id)
+      fetch(`http://localhost:3001/api/v1/jobs/${action.id}`, {
+        method: 'DELETE'
       })
     default:
       return state
   }
 }
 
-const showNewJobForm = (state = false, action) => {
-  switch(action.type) {
-    case 'HANDLE_NEW_FORM_CLICK':
-      return !state
-    default:
-      return state
-  }
-}
+// const showNewJobForm = (state = false, action) => {
+//   switch(action.type) {
+//     case 'HANDLE_NEW_FORM_CLICK':
+//       return !state
+//     default:
+//       return state
+//   }
+// }
 
 const currentUserId = (state = 1, action) => {
   return state
@@ -59,12 +40,14 @@ const currentUserId = (state = 1, action) => {
 
 const reducer = combineReducers({
   jobs,
-  showNewJobForm,
+  // showNewJobForm,
   currentUserId
 })
 
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(reducer, applyMiddleware(thunk))
+//
+// const store = createStore(reducer, applyMiddleware(thunk) && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 store.subscribe(() => {
   console.log('the new state is', store.getState())
@@ -81,31 +64,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
-
-// const reducer = (state) = {
-  //   jobs: [],
-  //   currentUserId: 1,
-  //   showNewJobForm: false
-  //   }, action) => {
-    //   console.log('the current state', state)
-    //
-    //   switch(action.type) {
-      //     case 'LOAD_JOBS':
-      //       return {...state, jobs: action.jobs}
-      //     case 'HANDLE_NEW_FORM_CLICK':
-      //       return {...state, showNewJobForm: true}
-      //     case 'TOGGLE_SHOW_MORE':
-      //       return {...state, jobs: state.jobs.map((job) => {
-        //         if (action.id === job.id) {
-          //           return {...job, show_more: !job.show_more}
-          //         } else {
-            //           return job
-            //         }
-            //       })
-            //     }
-            //     default:
-            //       return state
-            //   }
-            // }
