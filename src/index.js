@@ -17,22 +17,35 @@ const jobs = (state = [], action) => {
       return [...state, action.newJob]
     case 'DELETE_JOB':
       return state.filter(job => job.id !== action.id)
-      fetch(`http://localhost:3001/api/v1/jobs/${action.id}`, {
-        method: 'DELETE'
+    case 'ADD_TASK':
+      return state.map(job => {
+        if (job.id === action.id) {
+          return {...job, tasks: [...job.tasks, action.postedTask]}
+        } else {
+          return job
+        }
+      })
+    case 'DRAG_JOB':
+      return state.map(job => {
+        if (job.id === action.jobId) {
+          return {...job, current_column: action.column}
+        } else {
+          return job
+        }
       })
     default:
       return state
   }
 }
 
-// const showNewJobForm = (state = false, action) => {
-//   switch(action.type) {
-//     case 'HANDLE_NEW_FORM_CLICK':
-//       return !state
-//     default:
-//       return state
-//   }
-// }
+const selectedJobId = (state = 0, action) => {
+  switch(action.type) {
+    case 'SELECT_JOB':
+      return action.id
+    default:
+      return state
+  }
+}
 
 const currentUserId = (state = 1, action) => {
   return state
@@ -40,12 +53,12 @@ const currentUserId = (state = 1, action) => {
 
 const reducer = combineReducers({
   jobs,
-  // showNewJobForm,
+  selectedJobId,
   currentUserId
 })
 
 
-const store = createStore(reducer, applyMiddleware(thunk))
+export const store = createStore(reducer, applyMiddleware(thunk))
 //
 // const store = createStore(reducer, applyMiddleware(thunk) && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
