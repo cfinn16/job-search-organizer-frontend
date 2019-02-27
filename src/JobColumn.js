@@ -1,6 +1,5 @@
 import React from 'react'
 import Job from './Job.js'
-import HTML5Backend from "react-dnd-html5-backend";
 import { DragDropContext } from "react-dnd";
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -13,9 +12,20 @@ const Types = {
 
 const columnTarget = {
   drop(props, monitor) {
-    let { dragJob } = props
     const jobId = monitor.getItem().jobId
     store.dispatch({type: 'DRAG_JOB', jobId: jobId, column: props.label})
+    fetch(`http://localhost:3001/api/v1/user_jobs/with_user/1/with_job/${jobId}`, {
+      method: 'PATCH',
+
+      headers: {
+        'Accept': "application/json",
+        'Content-Type': "application/json"
+      },
+
+      body: JSON.stringify({
+        column: props.label,
+      })
+    })
   }
 }
 

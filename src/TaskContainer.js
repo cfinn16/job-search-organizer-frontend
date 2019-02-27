@@ -44,7 +44,10 @@ class TaskContainer extends React.Component {
     console.log("props", this.props)
     console.log("state", this.state)
     this.postNewTask(this.state.newTask, this.props.selectedJobId)
-    this.setState({showNewTaskForm: false})
+    this.setState({
+      showNewTaskForm: false,
+      newTask: ''
+    })
   }
 
   render() {
@@ -56,7 +59,7 @@ class TaskContainer extends React.Component {
             return <li><Task data={task}></Task></li>
           })}
         </ul>
-        <button onClick={() => this.handleNewTaskClick()}>+</button>
+        <button onClick={() => this.handleNewTaskClick()}>{this.state.showNewTaskForm ? "-" : "+"}</button>
         {this.state.showNewTaskForm &&
           <form onSubmit={(e) => this.handleNewTaskSubmit(e)}>
             <label>Task:

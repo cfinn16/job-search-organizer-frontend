@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import JobsContainer from './JobsContainer.js'
 import NewJobForm from './NewJobForm.js'
