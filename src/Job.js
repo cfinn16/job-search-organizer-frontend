@@ -10,6 +10,7 @@ const Types = {
 
 const jobSource = {
   beginDrag(props){
+    console.log("I'm dragging")
     return{ jobId: props.data.id}
   }
 }
