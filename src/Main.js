@@ -58,7 +58,7 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.currentUserId
+    currentUserId: state.logIn.currentUserId
   }
 }
 
