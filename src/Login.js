@@ -6,27 +6,31 @@ import { Link } from 'react-router-dom';
 
 const handleSubmit = (e, props) => {
   e.preventDefault()
-  console.log("In Signup handleSubmit", props)
-  fetch('http://localhost:3001/api/v1/users', {
-    method: 'POST',
+  console.log("In handleSubmit", props)
+    fetch('http://localhost:3001/api/v1/users/login', {
+      method: 'POST',
 
-    headers: {
-      'Content-Type': "application/json",
-      'Accept': "application/json"
-    },
-    body: JSON.stringify({
-      name: props.name,
-      email: props.email,
-      password: props.password
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json"
+      },
+      body: JSON.stringify({
+        name: props.name,
+        email: props.email,
+        password: props.password
+      })
     })
-  })
-  .then(res => res.json())
-  .then(newUser => {
-      props.userCreated(newUser.id)
-  })
+    .then(res => res.json())
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        props.successfulLogIn(response)
+      }
+    })
 }
 
-const Signup = (props) => {
+const Login = (props) => {
 
   return(
     <div style={ { textAlign: 'center'} }>
@@ -44,9 +48,9 @@ const Signup = (props) => {
           Password:
           <input type="text" data-label="password" value={props.password} onChange={(e) => props.formInputChangePassword(e.target.value)}></input>
         </label><br/>
-        <input type="submit" value="Sign up"></input>
+        <input type="submit" value="Log In"></input>
       </form>
-      <p>Returning user? <Link to="/login">Log in here.</Link></p>
+      <p>New user? <Link to="/signup">Sign up here.</Link></p>
     </div>
 
   )
@@ -66,8 +70,9 @@ const mapDispatchToProps = dispatch => {
     formInputChangeName: (name) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_NAME', value: name}),
     formInputChangeEmail: (email) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_EMAIL', value: email}),
     formInputChangePassword: (password) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_PASSWORD', value: password}),
-    userCreated: (id) => dispatch({type: 'SUCCESSFUL_SIGN_UP', id: id})
+    logInSubmit: () => dispatch({ type: 'LOG_IN_SUBMIT'}),
+    successfulLogIn: (id) => dispatch({type: 'SUCCESSFUL_LOGIN', id: id})
   }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(Signup)
+export default connect (mapStateToProps, mapDispatchToProps)(Login)

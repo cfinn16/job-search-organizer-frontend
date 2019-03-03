@@ -60,7 +60,7 @@ class Job extends React.Component {
 
 
   render(){
-    const { isDragging, connectDragSource} = this.props
+    const { connectDragSource } = this.props
     // console.log(this.props)
     return connectDragSource(
       <div>

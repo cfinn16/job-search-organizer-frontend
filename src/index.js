@@ -65,7 +65,19 @@ const logIn = (state = {
       console.log("in log in submit")
       return state
     case 'SUCCESSFUL_LOGIN':
-      return {...state, currentUserId: action.id, successfulLogIn: true}
+      return {...state,
+      currentUserId: action.id,
+      successfulLogIn: true, name: '',
+      email: '',
+      password: ''
+      }
+    case 'SUCCESSFUL_SIGN_UP':
+      return {...state,
+        currentUserId: action.id,
+        successfulLogIn: true, name: '',
+        email: '',
+        password: ''
+        }
     default:
       return state
   }

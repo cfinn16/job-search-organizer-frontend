@@ -1,6 +1,5 @@
 import React from 'react'
 import Job from './Job.js'
-import { DragDropContext } from "react-dnd";
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'

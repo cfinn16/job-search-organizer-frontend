@@ -1,6 +1,7 @@
 import React from 'react';
 import Main from './Main.js';
 import Signup from './Signup.js'
+import Login from './Login.js'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 
@@ -12,7 +13,8 @@ class App extends React.Component {
     <Router>
       <div>
         <Switch>
-          <Redirect exact path="/" to="/signup" />
+          <Redirect exact path="/" to="/login" />
+          <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route exact path="/main" component={Main} />
         </Switch>
