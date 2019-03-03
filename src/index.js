@@ -47,14 +47,46 @@ const selectedJobId = (state = 0, action) => {
   }
 }
 
-const currentUserId = (state = 1, action) => {
-  return state
+const logIn = (state = {
+  currentUserId: 1,
+  successfulLogIn: false,
+  name: '',
+  email: '',
+  password: ''
+}, action) => {
+  switch(action.type) {
+    case 'HANDLE_FORM_INPUT_CHANGE_NAME':
+      return {...state, name: action.value}
+    case 'HANDLE_FORM_INPUT_CHANGE_EMAIL':
+      return {...state, email: action.value}
+    case 'HANDLE_FORM_INPUT_CHANGE_PASSWORD':
+      return {...state, password: action.value}
+    case 'LOG_IN_SUBMIT':
+      console.log("in log in submit")
+      return state
+    case 'SUCCESSFUL_LOGIN':
+      return {...state,
+      currentUserId: action.id,
+      successfulLogIn: true, name: '',
+      email: '',
+      password: ''
+      }
+    case 'SUCCESSFUL_SIGN_UP':
+      return {...state,
+        currentUserId: action.id,
+        successfulLogIn: true, name: '',
+        email: '',
+        password: ''
+        }
+    default:
+      return state
+  }
 }
 
 const reducer = combineReducers({
   jobs,
   selectedJobId,
-  currentUserId
+  logIn
 })
 
 

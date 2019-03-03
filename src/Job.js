@@ -10,6 +10,7 @@ const Types = {
 
 const jobSource = {
   beginDrag(props){
+    console.log("I'm dragging")
     return{ jobId: props.data.id}
   }
 }
@@ -59,7 +60,7 @@ class Job extends React.Component {
 
 
   render(){
-    const { isDragging, connectDragSource} = this.props
+    const { connectDragSource } = this.props
     // console.log(this.props)
     return connectDragSource(
       <div>

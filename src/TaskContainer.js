@@ -56,7 +56,7 @@ class TaskContainer extends React.Component {
         <h2>To-Dos</h2>
         <ul style={{listStyle: "none"}}>
           {this.props.selectedJob.tasks.map(task => {
-            return <li><Task data={task}></Task></li>
+            return <Task key={task.id} data={task}></Task>
           })}
         </ul>
         <button onClick={() => this.handleNewTaskClick()}>{this.state.showNewTaskForm ? "-" : "+"}</button>
