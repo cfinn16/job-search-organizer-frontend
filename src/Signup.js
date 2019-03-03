@@ -23,8 +23,12 @@ const handleSubmit = (e, props) => {
       })
     })
     .then(res => res.json())
-    .then(id => {
-      props.successfulLogIn(id)
+    .then(response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        props.successfulLogIn(response)
+      }
     })
 }
 
