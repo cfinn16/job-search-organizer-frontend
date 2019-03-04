@@ -48,7 +48,7 @@ const selectedJobId = (state = 0, action) => {
 }
 
 const logIn = (state = {
-  currentUserId: 1,
+  currentUserId: 0,
   successfulLogIn: false,
   name: '',
   email: '',
