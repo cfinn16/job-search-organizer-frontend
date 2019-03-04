@@ -1,6 +1,6 @@
 import React from 'react'
 import JobListing from './JobListing.js'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 class JobListingsContainer extends React.Component {
   state={
@@ -28,10 +28,32 @@ class JobListingsContainer extends React.Component {
 
   updateSearch = (e) => {
     e.preventDefault()
-    fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=1`)
+    fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=${this.state.pageNum}`)
     .then(res => res.json())
     .then(response => {
       this.setState({searchedJobs: response.results})
+    })
+  }
+
+  nextPage = () => {
+    this.setState({pageNum: this.state.pageNum + 1}, () => {
+      fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=${this.state.pageNum}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({searchedJobs: response.results})
+      })
+      window.scrollTo(0, 0)
+    })
+  }
+
+  prevPage = () => {
+    this.setState({pageNum: this.state.pageNum - 1}, () => {
+      fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=${this.state.pageNum}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({searchedJobs: response.results})
+      })
+      window.scrollTo(0, 0)
     })
   }
 
@@ -79,6 +101,12 @@ class JobListingsContainer extends React.Component {
         {this.state.searchedJobs.map(job => {
           return <JobListing key={job.id} data={job}></JobListing>
         })}
+        {this.state.searchedJobs.length === 20 &&
+          <button onClick={() => this.nextPage()} style={{position: "absolute", right: "0px"}}>More Results</button>
+        }
+        {this.state.pageNum > 1 &&
+          <button onClick={() => this.prevPage()} style={{position: "absolute", left: "0px"}}>Previous Results</button>
+        }
       </div>
     )
   }
