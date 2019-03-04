@@ -33,7 +33,6 @@ class Main extends Component {
     this.setState({showNewJobForm: !this.state.showNewJobForm})
   }
 
-
   componentDidMount() {
     this.props.fetchJobs(this.props.currentUserId)
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const postNewJob = (newJob) => {
+const postNewJob = (newJob, userId) => {
   console.log("newJob info", newJob)
   return function(dispatch) {
 
@@ -33,7 +33,7 @@ const postNewJob = (newJob) => {
           'Accept': "application/json"
         },
         body: JSON.stringify({
-          user_id: 1,
+          user_id: userId,
           job_id: postedJob.id,
           column: "Interested"
         })
@@ -58,7 +58,7 @@ class NewJobForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.postNewJob(this.state)
+    this.props.postNewJob(this.state, this.props.currentUserId)
   }
 
   render(){
@@ -96,11 +96,10 @@ class NewJobForm extends React.Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     postNewJob:
-//     addJob: formData => dispatch({ type: 'ADD_NEW_JOB', newJob: formData})
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    currentUserId: state.logIn.currentUserId
+  }
+}
 
-export default connect(null, {postNewJob})(NewJobForm)
+export default connect(mapStateToProps, {postNewJob})(NewJobForm)
