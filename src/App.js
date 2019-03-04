@@ -15,6 +15,11 @@ class App extends React.Component {
     }
   }
 
+  handleLogOut = () => {
+    localStorage.removeItem("user_id")
+    this.props.logOut()
+  }
+
   render(){
     console.log("In app", this.props.successfulLogIn)
     return (
@@ -23,11 +28,17 @@ class App extends React.Component {
         <header>
           <nav>
             <ul>
-              <li><Link to='/login'>Log In</Link></li>
-              <li><Link to='/main'>My Board</Link></li>
               <li><Link to='/jobs'>Browse Jobs</Link></li>
+              {this.props.successfulLogIn ?
+                <li><Link to='/main'>My Board</Link></li>
+                :
+              <li><Link to='/login'>Log In</Link></li>
+            }
             </ul>
           </nav>
+          {this.props.successfulLogIn &&
+            <button onClick={this.handleLogOut} style={{position: "absolute", right: "0px"}}>Log Out</button>
+        }
         </header>
         <div>
           <Switch>
@@ -37,7 +48,8 @@ class App extends React.Component {
             <Route path="/main" component={Main} />
             <Route path="/jobs" component={JobListingsContainer} />
           </Switch>
-        {this.props.successfulLogIn && <Redirect from="/signup" to="/main" />}
+        {this.props.successfulLogIn && <Redirect from="/login" to="/main" />}
+        {this.props.successfulLogIn === false && <Redirect from="/main" to="/login" />}
         </div>
       </div>
     </Router>
@@ -53,7 +65,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    persistUserId: (id) => dispatch({ type: 'SUCCESSFUL_LOGIN', id: id})
+    persistUserId: (id) => dispatch({ type: 'SUCCESSFUL_LOGIN', id: id}),
+    logOut: () => dispatch({type: 'LOG_OUT'})
   }
 }
 

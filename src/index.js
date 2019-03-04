@@ -48,7 +48,7 @@ const selectedJobId = (state = 0, action) => {
 }
 
 const logIn = (state = {
-  currentUserId: 0,
+  currentUserId: null,
   successfulLogIn: false,
   name: '',
   email: '',
@@ -74,10 +74,16 @@ const logIn = (state = {
     case 'SUCCESSFUL_SIGN_UP':
       return {...state,
         currentUserId: action.id,
-        successfulLogIn: true, name: '',
+        successfulLogIn: true,
+        name: '',
         email: '',
         password: ''
-        }
+      }
+    case 'LOG_OUT':
+      return {...state,
+        currentUserId: null,
+        successfulLogIn: false
+      }
     default:
       return state
   }
