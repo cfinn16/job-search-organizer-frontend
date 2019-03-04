@@ -22,7 +22,9 @@ const handleSubmit = (e, props) => {
   })
   .then(res => res.json())
   .then(newUser => {
+      console.log(newUser)
       props.userCreated(newUser.id)
+      localStorage.setItem("user_id", newUser.id)
   })
 }
 

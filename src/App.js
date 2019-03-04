@@ -7,6 +7,13 @@ import { connect } from 'react-redux'
 import { Route, Switch, Redirect, Link, BrowserRouter as Router } from 'react-router-dom';
 
 class App extends React.Component {
+  componentDidMount() {
+    let currentUserId = (localStorage.getItem('user_id'))
+
+    if (currentUserId) {
+      this.props.persistUserId(currentUserId)
+    }
+  }
 
   render(){
     console.log("In app", this.props.successfulLogIn)
@@ -44,4 +51,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch => {
+  return {
+    persistUserId: (id) => dispatch({ type: 'SUCCESSFUL_LOGIN', id: id})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -25,7 +25,9 @@ const handleSubmit = (e, props) => {
       if (response.errors) {
         alert(response.errors)
       } else {
+        console.log(response)
         props.successfulLogIn(response)
+        localStorage.setItem("user_id", response)
       }
     })
 }
