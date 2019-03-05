@@ -10,7 +10,6 @@ const Types = {
 
 const jobSource = {
   beginDrag(props){
-    console.log("I'm dragging")
     return{ jobId: props.data.id}
   }
 }
@@ -29,8 +28,6 @@ class Job extends React.Component {
 
   handleClick = () => {
     this.setState({showMore: !this.state.showMore})
-    // console.log("this.props.data.id", this.props.data.id)
-    // console.log("parseInt", parseInt(this.props.data.id))
     this.props.selectJob(this.props.data.id)
   }
 
