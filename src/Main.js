@@ -34,6 +34,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    this.props.currentUserId &&
     this.props.fetchJobs(this.props.currentUserId)
   }
 
@@ -63,11 +64,9 @@ const mapStateToProps = (state) => {
 
 // const mapDispatchToProps = dispatch => {
 //   return {
-//     fetchJobs: (userId) => dispatch({ type: 'LOAD_JOBS', jobs: jobs }),
-//     handleNewFormClick: () => dispatch({ type: 'HANDLE_NEW_FORM_CLICK' })
+//     fetchJobs: (userId) => dispatch({ type: 'LOAD_JOBS', jobs: jobs })
 //   }
 // }
-
 
 
 export default connect(mapStateToProps, { fetchJobs})(Main)

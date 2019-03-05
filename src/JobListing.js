@@ -18,7 +18,7 @@ class JobListing extends React.Component {
 
   handleClick = () => {
     const formattedJob = this.formatDescription(this.props.data.contents)
-    fetch(`http://localhost:3001/api/v1/jobs`, {
+    fetch(`http://localhost:3001/api/v1/jobs/from_listings`, {
       method: 'POST',
 
       headers: {
@@ -28,31 +28,32 @@ class JobListing extends React.Component {
       body: JSON.stringify({
         title: this.props.data.name,
         company: this.props.data.company.name,
-        years_experience: 0,
-        salary: 0,
-        contact_email: "",
-        description: formattedJob
+        description: formattedJob,
+        user_id: this.props.currentUserId
       })
     })
     .then(res => res.json())
     .then(postedJob => {
       console.log(postedJob)
-      this.props.addJob(postedJob)
-      fetch(`http://localhost:3001/api/v1/user_jobs`, {
-        method: 'POST',
+      if (!postedJob.user_id && !postedJob.description) {
+        alert("That job is already on your board")
+      } else if (!postedJob.user_id) {
+        this.props.addJob(postedJob)
+        fetch(`http://localhost:3001/api/v1/user_jobs`, {
+          method: 'POST',
 
-        headers: {
-          'Content-Type': "application/json",
-          'Accept': "application/json"
-        },
-        body: JSON.stringify({
-          user_id: this.props.currentUserId,
-          job_id: postedJob.id,
-          column: "Interested"
+          headers: {
+            'Content-Type': "application/json",
+            'Accept': "application/json"
+          },
+          body: JSON.stringify({
+            user_id: this.props.currentUserId,
+            job_id: postedJob.id,
+            column: "Interested"
+          })
         })
-      })
+      }
     })
-
   }
 
   render(){
