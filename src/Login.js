@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 
-
 const handleSubmit = (e, props) => {
   e.preventDefault()
   console.log("In handleSubmit", props)
@@ -26,8 +25,8 @@ const handleSubmit = (e, props) => {
         alert(response.errors)
       } else {
         console.log(response)
-        props.successfulLogIn(response)
-        localStorage.setItem("user_id", response)
+        localStorage.setItem("jwt", response.token)
+        props.successfulLogIn()
       }
     })
 }
@@ -73,7 +72,7 @@ const mapDispatchToProps = dispatch => {
     formInputChangeEmail: (email) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_EMAIL', value: email}),
     formInputChangePassword: (password) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_PASSWORD', value: password}),
     logInSubmit: () => dispatch({ type: 'LOG_IN_SUBMIT'}),
-    successfulLogIn: (id) => dispatch({type: 'SUCCESSFUL_LOGIN', id: id})
+    successfulLogIn: () => dispatch({type: 'SUCCESSFUL_LOGIN'})
   }
 }
 

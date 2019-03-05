@@ -35,8 +35,8 @@ class JobListing extends React.Component {
     .then(res => res.json())
     .then(postedJob => {
       console.log(postedJob)
-      if (!postedJob.user_id && !postedJob.description) {
-        alert("That job is already on your board")
+      if (postedJob.errors) {
+        alert(postedJob.errors)
       } else if (!postedJob.user_id) {
         this.props.addJob(postedJob)
         fetch(`http://localhost:3001/api/v1/user_jobs`, {

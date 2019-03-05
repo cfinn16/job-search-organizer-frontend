@@ -21,10 +21,10 @@ const handleSubmit = (e, props) => {
     })
   })
   .then(res => res.json())
-  .then(newUser => {
-      console.log(newUser)
-      props.userCreated(newUser.id)
-      localStorage.setItem("user_id", newUser.id)
+  .then(response => {
+      console.log(response)
+      localStorage.setItem("jwt", response.token)
+      props.userCreated()
   })
 }
 
@@ -68,7 +68,7 @@ const mapDispatchToProps = dispatch => {
     formInputChangeName: (name) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_NAME', value: name}),
     formInputChangeEmail: (email) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_EMAIL', value: email}),
     formInputChangePassword: (password) => dispatch({ type: 'HANDLE_FORM_INPUT_CHANGE_PASSWORD', value: password}),
-    userCreated: (id) => dispatch({type: 'SUCCESSFUL_SIGN_UP', id: id})
+    userCreated: () => dispatch({type: 'SUCCESSFUL_SIGN_UP'})
   }
 }
 

@@ -38,6 +38,11 @@ class Main extends Component {
     this.props.fetchJobs(this.props.currentUserId)
   }
 
+  componentDidUpdate() {
+    this.props.currentUserId &&
+    this.props.fetchJobs(this.props.currentUserId)
+  }
+
   render() {
     return (
       <div className="App">

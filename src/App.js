@@ -8,15 +8,39 @@ import { Route, Switch, Redirect, Link, BrowserRouter as Router } from 'react-ro
 
 class App extends React.Component {
   componentDidMount() {
-    let currentUserId = (localStorage.getItem('user_id'))
-
-    if (currentUserId) {
-      this.props.persistUserId(currentUserId)
+    let token = (localStorage.getItem('jwt'))
+    if (token) {
+      fetch(`http://localhost:3001/api/v1/current_user`, {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(user => {
+        this.props.persistUserId(user.id)
+      })
     }
   }
 
+
+  componentDidUpdate() {
+    let token = (localStorage.getItem('jwt'))
+    if (token) {
+      fetch(`http://localhost:3001/api/v1/current_user`, {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then(res => res.json())
+      .then(user => {
+        this.props.persistUserId(user.id)
+      })
+    }
+  }
+
+
   handleLogOut = () => {
-    localStorage.removeItem("user_id")
+    localStorage.removeItem("jwt")
     this.props.logOut()
   }
 
@@ -29,14 +53,14 @@ class App extends React.Component {
           <nav>
             <ul>
               <li><Link to='/jobs'>Browse Jobs</Link></li>
-              {this.props.successfulLogIn ?
+              {this.props.currentUserId ?
                 <li><Link to='/main'>My Board</Link></li>
                 :
               <li><Link to='/login'>Log In</Link></li>
             }
             </ul>
           </nav>
-          {this.props.successfulLogIn &&
+          {this.props.currentUserId &&
             <button onClick={this.handleLogOut} style={{position: "absolute", right: "0px"}}>Log Out</button>
         }
         </header>
@@ -59,13 +83,14 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    successfulLogIn: state.logIn.successfulLogIn
+    successfulLogIn: state.logIn.successfulLogIn,
+    currentUserId: state.logIn.currentUserId
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    persistUserId: (id) => dispatch({ type: 'SUCCESSFUL_LOGIN', id: id}),
+    persistUserId: (id) => dispatch({ type: 'PERSIST_USER_ID', id: id}),
     logOut: () => dispatch({type: 'LOG_OUT'})
   }
 }
