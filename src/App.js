@@ -4,7 +4,9 @@ import Signup from './Signup.js'
 import Login from './Login.js'
 import JobListingsContainer from './JobListingsContainer.js'
 import { connect } from 'react-redux'
-import { Route, Switch, Redirect, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react'
+import { Route, Switch, Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
 
 class App extends React.Component {
   componentDidMount() {
@@ -42,41 +44,36 @@ class App extends React.Component {
   handleLogOut = () => {
     localStorage.removeItem("jwt")
     this.props.logOut()
+    this.props.history.push('/login')
   }
 
   render(){
-    console.log("In app", this.props.successfulLogIn)
     return (
-    <Router>
       <div>
         <header>
-          <nav>
-            <ul>
-              <li><Link to='/jobs'>Browse Jobs</Link></li>
+          {this.props.successfulLogIn &&
+          <Menu>
+              <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
               {this.props.currentUserId ?
-                <li><Link to='/main'>My Board</Link></li>
+                <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
                 :
-              <li><Link to='/login'>Log In</Link></li>
+              <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
-            </ul>
-          </nav>
-          {this.props.currentUserId &&
-            <button onClick={this.handleLogOut} style={{position: "absolute", right: "0px"}}>Log Out</button>
+            {this.props.currentUserId &&
+              <Menu.Item onClick={this.handleLogOut} style={{position: "absolute", right: "0px"}}>Log Out</Menu.Item>
+            }
+          </Menu>
         }
         </header>
         <div>
           <Switch>
-            <Redirect exact path="/" to="/login" />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/main" component={Main} />
             <Route path="/jobs" component={JobListingsContainer} />
           </Switch>
-        {this.props.successfulLogIn && <Redirect from="/login" to="/main" />}
-        {this.props.successfulLogIn === false && <Redirect from="/main" to="/login" />}
         </div>
       </div>
-    </Router>
     )
   }
 }
@@ -95,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
