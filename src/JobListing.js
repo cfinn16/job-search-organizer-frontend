@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Icon, Message } from 'semantic-ui-react'
+import { Modal, Button, Icon, Message, Card } from 'semantic-ui-react'
 
 class JobListing extends React.Component {
   state = {
@@ -57,9 +57,24 @@ class JobListing extends React.Component {
   render(){
     return (
       <div>
-        <h2>{this.props.data.name}</h2>
-        <h3>{this.props.data.company.name}</h3>
-        <Modal trigger={<Button>See More</Button>} closeIcon>
+        <div style={{marginBottom: "10px"}}>
+          <Card.Content>
+            <Card.Header><h2>{this.props.data.name}</h2></Card.Header>
+            <Card.Description>
+              <h3>{this.props.data.company.name}</h3>
+              {this.props.data.levels.length > 0 &&
+                <h4>{this.props.data.levels[0].name}</h4>
+              }
+            </Card.Description>
+          </Card.Content>
+        </div>
+        <Modal trigger={
+          <div style={{position: "absolute", right: 0, bottom: 0, paddingTop: "10px"}}>
+            <Card.Content extra>
+              <Button>See More</Button>
+            </Card.Content>
+          </div>
+          } closeIcon>
           <Modal.Header>
             {this.props.data.name} - {this.props.data.company.name}
           </Modal.Header>

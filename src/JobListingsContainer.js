@@ -1,6 +1,6 @@
 import React from 'react'
 import JobListing from './JobListing.js'
-import { Grid } from '.'
+import { Card, Button, Icon, Form } from 'semantic-ui-react'
 
 class JobListingsContainer extends React.Component {
   state={
@@ -62,7 +62,7 @@ class JobListingsContainer extends React.Component {
     return (
       <div>
         <h1 style={{textAlign: "center"}}>Find A Job!</h1>
-        <form onSubmit={(e) => this.updateSearch(e)}>
+        <Form onSubmit={(e) => this.updateSearch(e)}>
           <label>
             Select a category:
             <select value={this.state.category} onChange={(e) => this.handleCategorySelect(e)}>
@@ -95,18 +95,24 @@ class JobListingsContainer extends React.Component {
             </select>
           </label>
           <input type="submit" value="Search" />
-        </form>
-
-
-        {this.state.searchedJobs.map(job => {
-          return <JobListing key={job.id} data={job}></JobListing>
-        })}
+        </Form>
+        <div style={{padding: "25px 50px"}}>
+          <Card.Group itemsPerRow={4}>
+            {this.state.searchedJobs.map(job => {
+              return(
+              <Card key={job.id} raised>
+                <JobListing data={job}></JobListing>
+              </Card>
+            )
+            })}
+          </Card.Group>
+        </div>
 
         {this.state.searchedJobs.length === 20 &&
-          <button onClick={() => this.nextPage()} style={{position: "absolute", right: "0px"}}>More Results</button>
+          <Button size="large" primary onClick={() => this.nextPage()} style={{position: "absolute", right: "0px"}}>More Results <Icon name="arrow right" /></Button>
         }
         {this.state.pageNum > 1 &&
-          <button onClick={() => this.prevPage()} style={{position: "absolute", left: "0px"}}>Previous Results</button>
+          <Button size="large" secondary onClick={() => this.prevPage()} style={{position: "absolute", left: "0px"}}><Icon name="arrow left" /> Previous Results </Button>
         }
       </div>
     )

@@ -3,6 +3,7 @@ import TaskContainer from './TaskContainer.js'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
+import { Modal } from 'semantic-ui-react'
 
 const Types = {
   JOB: 'job'
@@ -61,20 +62,24 @@ class Job extends React.Component {
     // console.log(this.props)
     return connectDragSource(
       <div>
-        <div onClick={() => this.handleClick()}>
-          <h2>{this.props.data.title}</h2>
-          <h3>{this.props.data.company}</h3>
-        </div>
-        {this.state.showMore &&
-          <>
-          <h3>Years of Experience Needed: {this.props.data.years_experience}</h3>
-          <h3>Salary: ${this.props.data.salary}</h3>
-          <h3>Contact: {this.props.data.contact_email}</h3>
-          <p>{this.props.data.description}</p>
-          <TaskContainer> </TaskContainer>
-          </>
-        }
-        <button id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>X</button>
+        <Modal trigger={
+          <div onClick={() => this.handleClick()}>
+            <h2>{this.props.data.title}</h2>
+            <h3>{this.props.data.company}</h3>
+            <button id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>X</button>
+          </div> }>
+          <Modal.Header>
+            <h2>{this.props.data.title}</h2>
+            <h3>{this.props.data.company}</h3>
+          </Modal.Header>
+          <Modal.Content>
+            <h3>Years of Experience Needed: {this.props.data.years_experience}</h3>
+            <h3>Salary: ${this.props.data.salary}</h3>
+            <h3>Contact: {this.props.data.contact_email}</h3>
+            <p>{this.props.data.description}</p>
+            <TaskContainer> </TaskContainer>
+          </Modal.Content>
+        </Modal>
       </div>
     )
   }

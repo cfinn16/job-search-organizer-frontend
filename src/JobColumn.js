@@ -4,7 +4,6 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
 import { store } from './index.js'
-import { Grid } from 'semantic-ui-react'
 
 const Types = {
   JOB: 'job'

@@ -3,7 +3,6 @@ import HTML5Backend from "react-dnd-html5-backend";
 import JobColumn from './JobColumn.js'
 import { DragDropContext } from "react-dnd";
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
 
 class JobsContainer extends React.Component {
 
