@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { createStore, applyMiddleware, combineReducers, compose} from 'redux'
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import 'semantic-ui/dist/semantic.min.css';
@@ -120,7 +121,9 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'));
 

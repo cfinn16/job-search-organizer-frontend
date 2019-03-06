@@ -1,19 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-
+import { Modal, Button, Icon, Message } from 'semantic-ui-react'
 
 class JobListing extends React.Component {
   state = {
-    showMore: false
+    isAdded: false
   }
 
   formatDescription = (jobDescription) => {
     return jobDescription.replace(/<[^>]*>/g, ' ')
-  }
-
-  handleSeeMore = () => {
-    this.setState({showMore: !this.state.showMore})
   }
 
   handleClick = () => {
@@ -52,6 +47,9 @@ class JobListing extends React.Component {
             column: "Interested"
           })
         })
+        .then(res => {
+          this.setState({isAdded: true})
+        })
       }
     })
   }
@@ -61,16 +59,28 @@ class JobListing extends React.Component {
       <div>
         <h2>{this.props.data.name}</h2>
         <h3>{this.props.data.company.name}</h3>
-        <button onClick={() => this.handleSeeMore()}>See More</button>
-        {this.state.showMore &&
-          <div>
+        <Modal trigger={<Button>See More</Button>} closeIcon>
+          <Modal.Header>
+            {this.props.data.name} - {this.props.data.company.name}
+          </Modal.Header>
+          <Modal.Content>
             {this.props.data.levels.length > 0 &&
               <h4>Experience Level: {this.props.data.levels[0].name}</h4>
             }
             <p dangerouslySetInnerHTML={{__html: this.props.data.contents}} />
-            <button onClick={() => this.handleClick()}>Add to my job board</button>
-          </div>
-      }
+          </Modal.Content>
+          <Modal.Actions>
+            {this.state.isAdded ?
+            <Message>
+              Added to your job board  <Icon name='check' />
+            </Message>
+            :
+            <Button primary onClick={() => this.handleClick()}>
+            Add to my job board <Icon name='plus' />
+            </Button>
+          }
+          </Modal.Actions>
+        </Modal>
       </div>
     )
   }

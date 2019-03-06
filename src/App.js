@@ -5,7 +5,8 @@ import Login from './Login.js'
 import JobListingsContainer from './JobListingsContainer.js'
 import { connect } from 'react-redux'
 import { Menu } from 'semantic-ui-react'
-import { Route, Switch, Redirect, Link, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
 
 class App extends React.Component {
   componentDidMount() {
@@ -43,12 +44,11 @@ class App extends React.Component {
   handleLogOut = () => {
     localStorage.removeItem("jwt")
     this.props.logOut()
+    this.props.history.push('/login')
   }
 
   render(){
-    console.log("In app", this.props.successfulLogIn)
     return (
-    <Router>
       <div>
         <header>
           {this.props.successfulLogIn &&
@@ -67,17 +67,13 @@ class App extends React.Component {
         </header>
         <div>
           <Switch>
-            <Redirect exact path="/" to="/login" />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/main" component={Main} />
             <Route path="/jobs" component={JobListingsContainer} />
-            </Switch>
-            {this.props.successfulLogIn && <Redirect from="/login" to="/main" />}
-            {this.props.successfulLogIn === false &&  <Redirect from="/main" to="/login" />}
+          </Switch>
         </div>
       </div>
-    </Router>
     )
   }
 }
@@ -96,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

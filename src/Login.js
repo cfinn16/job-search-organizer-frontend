@@ -27,6 +27,7 @@ const handleSubmit = (e, props) => {
         console.log(response)
         localStorage.setItem("jwt", response.token)
         props.successfulLogIn()
+        props.history.push('/main')
       }
     })
 }
@@ -53,7 +54,7 @@ const Login = (props) => {
               <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' data-label="name" onChange={(e) => props.formInputChangeName(e.target.value)} value={props.name}/>
               <Form.Input fluid icon='mail' iconPosition='left' placeholder='Email' data-label="email" onChange={(e) => props.formInputChangeEmail(e.target.value)} value={props.email}/>
               <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' data-label="password" type="password" onChange={(e) => props.formInputChangePassword(e.target.value)} value={props.password}/>
-              <Button type="submit" color='teal' fluid size='large'>
+              <Button type="submit" color="teal" fluid size='large'>
                 Login
               </Button>
             </Segment>

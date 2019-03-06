@@ -1,11 +1,11 @@
 import React from 'react'
 import JobListing from './JobListing.js'
-// import { connect } from 'react-redux'
+import { Grid } from '.'
 
 class JobListingsContainer extends React.Component {
   state={
     searchedJobs: [],
-    category: "Account%20Management",
+    category: "Engineering",
     location: "New%20York%20City%2C%20NY",
     pageNum: 1
   }
@@ -101,6 +101,7 @@ class JobListingsContainer extends React.Component {
         {this.state.searchedJobs.map(job => {
           return <JobListing key={job.id} data={job}></JobListing>
         })}
+
         {this.state.searchedJobs.length === 20 &&
           <button onClick={() => this.nextPage()} style={{position: "absolute", right: "0px"}}>More Results</button>
         }
