@@ -4,6 +4,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
 import { store } from './index.js'
+import { Grid } from 'semantic-ui-react'
 
 const Types = {
   JOB: 'job'
@@ -40,12 +41,12 @@ class JobColumn extends React.Component {
   render(){
     const { connectDropTarget, isOver } = this.props
     return connectDropTarget(
-      <div style={{ width: 200, backgroundColor: isOver ? "blue" : "white"}}>
-        <h1>{this.props.label}</h1>
-        {this.props.jobs.filter(job => job.current_column === this.props.label).map(job => {
-            return <Job key={job.id} data={job}/>
-          })}
-      </div>
+      <td style={{width: "16.66%", padding: "0px 15px", backgroundColor: isOver ? "blue" : "white"}}>
+          <h1>{this.props.label}</h1>
+          {this.props.jobs.filter(job => job.current_column === this.props.label).map(job => {
+              return <Job key={job.id} data={job}/>
+            })}
+      </td>
     )
   }
 }

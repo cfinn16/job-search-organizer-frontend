@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware, combineReducers, compose} from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import 'semantic-ui/dist/semantic.min.css';
 
 const jobs = (state = [], action) => {
   switch(action.type) {

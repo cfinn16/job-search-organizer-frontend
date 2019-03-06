@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
 const handleSubmit = (e, props) => {
   e.preventDefault()
-  console.log("In handleSubmit", props)
     fetch('http://localhost:3001/api/v1/users/login', {
       method: 'POST',
 
@@ -34,28 +34,37 @@ const handleSubmit = (e, props) => {
 const Login = (props) => {
 
   return(
-    <div style={ { textAlign: 'center'} }>
-      <h1>Welcome to Job Search Organizer</h1>
-      <form onSubmit={(e) => handleSubmit(e, props)}>
-        <label>
-          Name:
-          <input type="text" data-label="name" onChange={(e) => props.formInputChangeName(e.target.value)} value={props.name}></input>
-        </label><br/>
-        <label>
-          Email:
-          <input type="text" data-label="email" value={props.email} onChange={(e) => props.formInputChangeEmail(e.target.value)}></input>
-        </label><br/>
-        <label>
-          Password:
-          <input type="text" data-label="password" value={props.password} onChange={(e) => props.formInputChangePassword(e.target.value)}></input>
-        </label><br/>
-        <input type="submit" value="Log In"></input>
-      </form>
-      <p>New user? <Link to="/signup">Sign up here.</Link></p>
+    <div>
+      <Grid textAlign='center' style={{ height: '100%',
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+
+      margin: "auto"
+      }} >
+         <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as='h1' textAlign='center'>
+          <Image src='https://image.flaticon.com/icons/svg/1535/1535019.svg' />The Next Step
+        </Header>
+          <Form size='large' onSubmit={(e) => handleSubmit(e, props)}>
+            <Segment stacked>
+              <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' data-label="name" onChange={(e) => props.formInputChangeName(e.target.value)} value={props.name}/>
+              <Form.Input fluid icon='mail' iconPosition='left' placeholder='Email' data-label="email" onChange={(e) => props.formInputChangeEmail(e.target.value)} value={props.email}/>
+              <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' data-label="password" type="password" onChange={(e) => props.formInputChangePassword(e.target.value)} value={props.password}/>
+              <Button type="submit" color='teal' fluid size='large'>
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            New user? <Link to="/signup">Sign up here.</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
     </div>
-
   )
-
 }
 
 const mapStateToProps = state => {
