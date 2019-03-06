@@ -3,7 +3,7 @@ import TaskContainer from './TaskContainer.js'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
-import { Modal } from 'semantic-ui-react'
+import { Modal, Card } from 'semantic-ui-react'
 
 const Types = {
   JOB: 'job'
@@ -59,15 +59,16 @@ class Job extends React.Component {
 
   render(){
     const { connectDragSource } = this.props
-    // console.log(this.props)
     return connectDragSource(
       <div>
         <Modal trigger={
-          <div onClick={() => this.handleClick()}>
-            <h2>{this.props.data.title}</h2>
-            <h3>{this.props.data.company}</h3>
-            <button id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>X</button>
-          </div> }>
+          <div style={{maxwidth: "350px"}}>
+            <Card onClick={() => this.handleClick()}>
+              <h2>{this.props.data.title}</h2>
+              <h3>{this.props.data.company}</h3>
+              <button id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>X</button>
+            </Card>
+          </div>}>
           <Modal.Header>
             <h2>{this.props.data.title}</h2>
             <h3>{this.props.data.company}</h3>
