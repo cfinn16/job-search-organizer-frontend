@@ -9,6 +9,10 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 
 class App extends React.Component {
+  state={
+    showNewJobForm: false
+  }
+
   componentDidMount() {
     let token = (localStorage.getItem('jwt'))
     if (token) {
@@ -23,7 +27,6 @@ class App extends React.Component {
       })
     }
   }
-
 
   componentDidUpdate() {
     let token = (localStorage.getItem('jwt'))
@@ -40,6 +43,10 @@ class App extends React.Component {
     }
   }
 
+  handleNewJobFormClick = () => {
+    this.setState({showNewJobForm: true})
+  }
+
 
   handleLogOut = () => {
     localStorage.removeItem("jwt")
@@ -48,19 +55,24 @@ class App extends React.Component {
   }
 
   render(){
+    console.log(window.location.pathname)
     return (
       <div>
-        <header>
+        <header style={{paddingBottom: "15px"}}>
           {this.props.successfulLogIn &&
-          <Menu>
-              <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
-              {this.props.currentUserId ?
-                <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
-                :
+          <Menu size="huge">
+            <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
+            {this.props.currentUserId ?
+              <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
+              :
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
+            {window.location.pathname==="/main" &&
+              <Menu.Item onClick={() => this.handleNewJobFormClick()}>Add Job Listing</Menu.Item>
+            }
+
             {this.props.currentUserId &&
-              <Menu.Item onClick={this.handleLogOut} style={{position: "absolute", right: "0px"}}>Log Out</Menu.Item>
+              <Menu.Item position='right' onClick={this.handleLogOut}>Log Out</Menu.Item>
             }
           </Menu>
         }
@@ -69,7 +81,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/main" component={Main} />
+            <Route path="/main" render={(props) => <Main {...props} showNewJobForm={this.state.showNewJobForm}/>}/>
             <Route path="/jobs" component={JobListingsContainer} />
           </Switch>
         </div>

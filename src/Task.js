@@ -1,4 +1,5 @@
 import React from 'react'
+import { List, Checkbox } from 'semantic-ui-react'
 
 class Task extends React.Component {
   state = {
@@ -9,17 +10,16 @@ class Task extends React.Component {
     this.setState({isCompleted: !this.state.isCompleted})
   }
 
+  labelStyle = {
+    textDecoration: this.state.isCompleted ? "line-through": "none",
+    fontStyle: this.state.isCompleted ? "italic": "normal"
+  }
+
   render(){
     return (
-      <li>
-        <label style={
-          {textDecoration: this.state.isCompleted ? "line-through": "none",
-          fontStyle: this.state.isCompleted ? "italic": "normal"
-        }}>
-        <input checked={this.state.isCompleted} onChange={this.handleCheck}id={this.props.data.id} type="checkbox"></input>
-        {this.props.data.description}
-        </label>
-      </li>
+      <List.Item>
+        <Checkbox checked={this.state.isCompleted} onChange={this.handleCheck} id={this.props.data.id} label={this.props.data.description} className={this.labelStyle} />
+      </List.Item>
     )
   }
 }

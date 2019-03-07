@@ -1,7 +1,7 @@
 import React from 'react'
 import Task from './Task.js'
 import { connect } from 'react-redux'
-
+import { Button, Icon, Form, List } from 'semantic-ui-react'
 
 
 class TaskContainer extends React.Component {
@@ -54,19 +54,19 @@ class TaskContainer extends React.Component {
     return (
         <>
         <h2>To-Dos</h2>
-        <ul style={{listStyle: "none"}}>
+        <List style={{listStyle: "none"}}>
           {this.props.selectedJob.tasks.map(task => {
             return <Task key={task.id} data={task}></Task>
           })}
-        </ul>
-        <button onClick={() => this.handleNewTaskClick()}>{this.state.showNewTaskForm ? "-" : "+"}</button>
+        </List>
+        <Button size="tiny" onClick={() => this.handleNewTaskClick()}>{this.state.showNewTaskForm ? <Icon name="minus" /> : <Icon name="plus"/>}</Button>
         {this.state.showNewTaskForm &&
-          <form onSubmit={(e) => this.handleNewTaskSubmit(e)}>
-            <label>Task:
-              <input type="text" onChange={(e) => this.handleChange(e)} value={this.state.newTask}></input>
-            </label>
-            <input type="submit"></input>
-          </form>
+          <div style={{width: "30%"}}>
+            <Form onSubmit={(e) => this.handleNewTaskSubmit(e)}>
+              <Form.Input label='Task'onChange={(e) => this.handleChange(e)} value={this.state.newTask}></Form.Input>
+              <Form.Button type="submit" content="Add"></Form.Button>
+            </Form>
+          </div>
         }
         </>
     )

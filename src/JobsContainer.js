@@ -11,21 +11,15 @@ class JobsContainer extends React.Component {
     return (
       <div style={{overflow: "scroll", padding: "25px 50px"}}>
         <Container fluid>
-          <table style={{width: "100%"}}>
+          <table style={{width: "100%", borderSpacing: "15px"}}>
             <tbody>
             <tr style={{verticalAlign: "top"}}>
               <JobColumn id={1} label="Interested"></JobColumn>
               <JobColumn id={2} label="Applied"></JobColumn>
-
-
               <JobColumn id={3} label="Phone Screen"></JobColumn>
-
               <JobColumn id={4} label="Interview"></JobColumn>
-
               <JobColumn id={5} label="Offer"></JobColumn>
-
               <JobColumn id={6} label="Rejected"></JobColumn>
-
             </tr>
             </tbody>
           </table>
