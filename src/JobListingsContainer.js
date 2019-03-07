@@ -76,7 +76,8 @@ class JobListingsContainer extends React.Component {
               <Form.Select label='Select a location:' value={this.state.location} onChange={(e, data) => this.handleLocationSelect(e, data)} options ={[
                 {key: 'nyc', value: "New%20York%20City%2C%20NY", text: "New York City, NY"},
                 {key: 'sf', value: "San%20Francisco%2C%20CA", text: "San Francisco, CA"},
-                {key: 'la', value: "Los%20Angeles%2C%20CA", text: "Los Angeles, CA"}
+                {key: 'chi', value: "Chicago%2C%20IL", text: "Chicago, IL"},
+                {key: 'sd', value: "San%20Diego%2C%20CA", text: "San Diego, CA"}
               ]}>
               </Form.Select>
               <Form.Field control={Button}>Search</Form.Field>
