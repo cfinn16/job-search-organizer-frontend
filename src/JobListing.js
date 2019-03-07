@@ -58,8 +58,10 @@ class JobListing extends React.Component {
     return (
       <div>
         <div style={{marginBottom: "10px"}}>
-          <Card.Content>
-            <Card.Header><h2>{this.props.data.name}</h2></Card.Header>
+          <Card.Content textAlign='center'>
+            <div style={{padding: "15px"}}>
+              <Card.Header><h2>{this.props.data.name}</h2></Card.Header>
+            </div>
             <Card.Description>
               <h3>{this.props.data.company.name}</h3>
               {this.props.data.levels.length > 0 &&
@@ -71,7 +73,7 @@ class JobListing extends React.Component {
         <Modal trigger={
           <div style={{position: "absolute", right: 0, bottom: 0, paddingTop: "10px"}}>
             <Card.Content extra>
-              <Button>See More</Button>
+              <Button size="small">See More</Button>
             </Card.Content>
           </div>
           } closeIcon>

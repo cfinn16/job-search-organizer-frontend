@@ -54,10 +54,12 @@ class Job extends React.Component {
               }
             </Card>
           </div>}>
-          <Modal.Header>
-            <h2>{this.props.data.title}</h2>
-            <h3>{this.props.data.company}</h3>
-          </Modal.Header>
+          <Modal.Content>
+            <Modal.Header>
+              <h1>{this.props.data.title}</h1>
+              <h2>{this.props.data.company}</h2>
+            </Modal.Header>
+          </Modal.Content>
           <Modal.Content>
             <h3>Years of Experience Needed: {this.props.data.years_experience}</h3>
             <h3>Salary: ${this.props.data.salary}</h3>
