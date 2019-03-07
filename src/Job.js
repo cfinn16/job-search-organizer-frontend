@@ -3,7 +3,7 @@ import TaskContainer from './TaskContainer.js'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
-import { Modal, Card } from 'semantic-ui-react'
+import { Modal, Card, Button } from 'semantic-ui-react'
 
 const Types = {
   JOB: 'job'
@@ -24,17 +24,12 @@ function collect(connect, monitor) {
 
 class Job extends React.Component {
   state = {
-    showMore: false,
+    showMore: false
   }
 
   handleClick = () => {
-    this.setState({showMore: !this.state.showMore})
     this.props.selectJob(this.props.data.id)
   }
-
-  // handleOpenModal = () => {
-  //   this.setState({showModal: true})
-  // }
 
   handleDeleteJob = (e) => {
     fetch(`http://localhost:3001/api/v1/jobs/${parseInt(e.target.id)}`, {
@@ -43,30 +38,20 @@ class Job extends React.Component {
     this.props.deleteJob(parseInt(e.target.id))
   }
 
-  // const jobSource = {
-  //   beginDrag(props){
-  //     return{ jobId: props.selectedJobId}
-  //   }
-  // }
-  //
-  // function collect(connect, monitor) {
-  //   return {
-  //     connectDragSource: connect.dragSource(),
-  //     isDragging: monitor.isDragging()
-  //   }
-  // }
-
-
   render(){
     const { connectDragSource } = this.props
     return connectDragSource(
       <div>
         <Modal trigger={
-          <div style={{maxwidth: "350px"}}>
+          <div style={{maxwidth: "350px", padding: "5px 15px"}}>
             <Card onClick={() => this.handleClick()}>
-              <h2>{this.props.data.title}</h2>
-              <h3>{this.props.data.company}</h3>
-              <button id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>X</button>
+              <Card.Content textAlign='center'>
+                <h2>{this.props.data.title}</h2>
+                <h3>{this.props.data.company}</h3>
+              </Card.Content>
+              {this.state.showMore &&
+              <footer style={{textAlign: "right"}}>Click to show more</footer>
+              }
             </Card>
           </div>}>
           <Modal.Header>
@@ -77,8 +62,12 @@ class Job extends React.Component {
             <h3>Years of Experience Needed: {this.props.data.years_experience}</h3>
             <h3>Salary: ${this.props.data.salary}</h3>
             <h3>Contact: {this.props.data.contact_email}</h3>
+            <h4>Description: </h4>
             <p>{this.props.data.description}</p>
             <TaskContainer> </TaskContainer>
+            <Button negative style={{
+              position: "absolute", right: 0, bottom: 0
+            }} id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>Remove from board</Button>
           </Modal.Content>
         </Modal>
       </div>
@@ -99,7 +88,6 @@ const mapDispatchToProps = dispatch => {
     selectJob: (id) => dispatch({type: 'SELECT_JOB', id: id })
   }
 }
-
 
 export default compose(
   DragSource(Types.JOB, jobSource, collect),

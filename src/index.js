@@ -99,20 +99,12 @@ const reducer = combineReducers({
   logIn
 })
 
-
-
-
-
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 export const store =
   createStore(
     reducer,
   composeEnhancer(applyMiddleware(thunk))
   )
-
-
-//
-// const store = createStore(reducer, applyMiddleware(thunk) && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 store.subscribe(() => {
   console.log('the new state is', store.getState())

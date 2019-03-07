@@ -40,11 +40,16 @@ class JobColumn extends React.Component {
   render(){
     const { connectDropTarget, isOver } = this.props
     return connectDropTarget(
-      <td style={{width: "16.66%", minWidth:"275px", padding: "0px 15px", backgroundColor: isOver ? "blue" : "white"}}>
-          <h1>{this.props.label}</h1>
+      <td style={{
+        width: "16%",
+        minWidth:"300px",
+        textAlign: "center",
+        backgroundColor: isOver ? "#0033c7" : "#cde8f6"
+      }}>
+          <h1 style={{paddingTop: "10px"}}>{this.props.label}</h1>
           {this.props.jobs.filter(job => job.current_column === this.props.label).map(job => {
-              return <Job key={job.id} data={job}/>
-            })}
+            return <Job key={job.id} data={job}/>
+          })}
       </td>
     )
   }
@@ -55,13 +60,6 @@ const mapStateToProps = (state) => {
     jobs: state.jobs
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     dragJob: (jobId, column) => dispatch({type: 'DRAG_JOB', jobId: jobId, column: column})
-//   }
-// }
-
 
 export default compose(
   DropTarget(Types.JOB, columnTarget, collect),
