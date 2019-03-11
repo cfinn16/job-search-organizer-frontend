@@ -38,7 +38,7 @@ const Login = (props) => {
 
   return(
     <div>
-      <Grid textAlign='center' style={{ height: '100%',
+      <Grid textAlign='center' verticalAlign='middle' style={{ height: '100%',
       position: "absolute",
       top: 0,
       bottom: 0,
@@ -48,7 +48,7 @@ const Login = (props) => {
       backgroundSize: 'cover',
       margin: "auto"
       }} >
-         <Grid.Column style={{ maxWidth: 450}}>
+         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h1' textAlign='center' style={{backgroundColor: "white", paddingBottom: "10px" }}>
             <Image src='https://image.flaticon.com/icons/svg/1535/1535019.svg' />The Next Step
           </Header>

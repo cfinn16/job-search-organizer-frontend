@@ -55,7 +55,6 @@ class App extends React.Component {
   }
 
   render(){
-    console.log(window.location.pathname)
     return (
       <div>
         <header style={{paddingBottom: "15px"}}>

@@ -34,7 +34,7 @@ const Signup = (props) => {
 
   return(
     <div>
-      <Grid textAlign='center' style={{
+      <Grid textAlign='center' verticalAlign='middle' style={{
         height: '100%',
         position: "absolute",
         top: 0,
