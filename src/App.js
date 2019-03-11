@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   handleNewJobFormClick = () => {
-    this.setState({showNewJobForm: true})
+    this.setState({showNewJobForm: !this.state.showNewJobForm}, () => console.log(this.state))
   }
 
 
@@ -55,7 +55,6 @@ class App extends React.Component {
   }
 
   render(){
-    console.log(window.location.pathname)
     return (
       <div>
         <header style={{paddingBottom: "15px"}}>

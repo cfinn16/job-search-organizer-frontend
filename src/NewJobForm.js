@@ -50,7 +50,7 @@ class NewJobForm extends React.Component {
     years_experience: '',
     salary: '',
     contact_email: '',
-    description: ''
+    description: '',
   }
 
   handleChange = (e) => {
@@ -60,39 +60,52 @@ class NewJobForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.postNewJob(this.state, this.props.currentUserId)
+    this.setState({
+      title: '',
+      company: '',
+      years_experience: '',
+      salary: '',
+      contact_email: '',
+      description: '',
+    })
   }
 
   render(){
+    console.log(this.props.showNewJobForm)
     return (
-      <div style={{width: "100%", textAlign: "center"}}>
-        <div style={{width: "25%", display: "inline-block"}}>
-          <Form onSubmit={(e) => this.handleSubmit(e)}>
-            <label>
-              Title:
-              <input type="text" data-label="title" onChange={(e) => this.handleChange(e)} value={this.state.title}></input>
-            </label><br/>
-            <label>
-              Company:
-              <input type="text" data-label="company" onChange={(e) => this.handleChange(e)} value={this.state.company}></input>
-            </label><br/>
-            <label>
-              Years of Experience Required:
-              <input type="number" data-label="years_experience" onChange={(e) => this.handleChange(e)} value={this.state.years_experience}></input>
-            </label><br/>
-            <label>
-              Estimated salary:
-              <input type="number" data-label="salary" onChange={(e) => this.handleChange(e)} value={this.state.salary}></input>
-            </label><br/>
-            <label>
-              Contact email:
-              <input type="text" data-label="contact_email" onChange={(e) => this.handleChange(e)} value={this.state.contact_email}></input>
-            </label><br/>
-            <label>
-              Description:
-              <input type="text" data-label="description" onChange={(e) => this.handleChange(e)} value={this.state.description}></input>
-            </label><br/>
-            <input type="submit"></input>
-          </Form>
+      <div style={{
+        display: this.props.showNewJobForm ? "block" : "none"
+      }}>
+        <div style={{width: "100%", textAlign: "center"}}>
+          <div style={{width: "25%", display: "inline-block"}}>
+            <Form onSubmit={(e) => this.handleSubmit(e)}>
+              <label>
+                Title:
+                <input type="text" data-label="title" onChange={(e) => this.handleChange(e)} value={this.state.title}></input>
+              </label><br/>
+              <label>
+                Company:
+                <input type="text" data-label="company" onChange={(e) => this.handleChange(e)} value={this.state.company}></input>
+              </label><br/>
+              <label>
+                Years of Experience Required:
+                <input type="number" data-label="years_experience" onChange={(e) => this.handleChange(e)} value={this.state.years_experience}></input>
+              </label><br/>
+              <label>
+                Estimated salary:
+                <input type="number" data-label="salary" onChange={(e) => this.handleChange(e)} value={this.state.salary}></input>
+              </label><br/>
+              <label>
+                Contact email:
+                <input type="text" data-label="contact_email" onChange={(e) => this.handleChange(e)} value={this.state.contact_email}></input>
+              </label><br/>
+              <label>
+                Description:
+                <input type="text" data-label="description" onChange={(e) => this.handleChange(e)} value={this.state.description}></input>
+              </label><br/>
+              <input type="submit"></input>
+            </Form>
+          </div>
         </div>
       </div>
     )
