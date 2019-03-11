@@ -53,7 +53,11 @@ class JobListingsContainer extends React.Component {
     console.log(this.state.searchedJobs)
     return (
       <div style={{backgroundColor: "#eeeeee", padding: "0 15px"}}>
-        <h1 style={{textAlign: "center"}}>Find A Job!</h1>
+        <h1 style={{textAlign: "center", fontSize: "250%", paddingTop: "15px"}}>
+          <span style={{color: "#cde8f6", backgroundColor: "#0033c7", borderRadius: "10px", padding: "0 15px"}}>
+            Find A Job!
+          </span>
+        </h1>
         <div style={{paddingLeft: "50px"}}>
           <Form onSubmit={(e) => this.updateSearch(e)}>
             <Form.Group inline>

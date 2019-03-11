@@ -37,9 +37,7 @@ class Main extends Component {
             My Job Board
           </Header>
         </div>
-        {this.props.showNewJobForm &&
-          <NewJobForm />
-        }
+        <NewJobForm showNewJobForm={this.props.showNewJobForm}/>        
         <JobsContainer />
       </div>
     );

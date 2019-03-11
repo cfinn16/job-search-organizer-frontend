@@ -32,6 +32,8 @@ const handleSubmit = (e, props) => {
     })
 }
 
+const URL = 'https://images.unsplash.com/photo-1448387473223-5c37445527e7'
+
 const Login = (props) => {
 
   return(
@@ -42,26 +44,27 @@ const Login = (props) => {
       bottom: 0,
       left: 0,
       right: 0,
-
+      backgroundImage: `url(${URL})`,
+      backgroundSize: 'cover',
       margin: "auto"
       }} >
-         <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h1' textAlign='center'>
-          <Image src='https://image.flaticon.com/icons/svg/1535/1535019.svg' />The Next Step
-        </Header>
-          <Form size='large' onSubmit={(e) => handleSubmit(e, props)}>
-            <Segment stacked>
-              <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' data-label="name" onChange={(e) => props.formInputChangeName(e.target.value)} value={props.name}/>
-              <Form.Input fluid icon='mail' iconPosition='left' placeholder='Email' data-label="email" onChange={(e) => props.formInputChangeEmail(e.target.value)} value={props.email}/>
-              <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' data-label="password" type="password" onChange={(e) => props.formInputChangePassword(e.target.value)} value={props.password}/>
-              <Button type="submit" color="teal" fluid size='large'>
-                Login
-              </Button>
-            </Segment>
-          </Form>
-          <Message>
-            New user? <Link to="/signup">Sign up here.</Link>
-          </Message>
+         <Grid.Column style={{ maxWidth: 450}}>
+          <Header as='h1' textAlign='center' style={{backgroundColor: "white", paddingBottom: "10px" }}>
+            <Image src='https://image.flaticon.com/icons/svg/1535/1535019.svg' />The Next Step
+          </Header>
+            <Form size='large' onSubmit={(e) => handleSubmit(e, props)}>
+              <Segment stacked>
+                <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' data-label="name" onChange={(e) => props.formInputChangeName(e.target.value)} value={props.name}/>
+                <Form.Input fluid icon='mail' iconPosition='left' placeholder='Email' data-label="email" onChange={(e) => props.formInputChangeEmail(e.target.value)} value={props.email}/>
+                <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' data-label="password" type="password" onChange={(e) => props.formInputChangePassword(e.target.value)} value={props.password}/>
+                <Button type="submit" color="teal" fluid size='large'>
+                  Login
+                </Button>
+              </Segment>
+            </Form>
+            <Message>
+              New user? <Link to="/signup">Sign up here.</Link>
+            </Message>
         </Grid.Column>
       </Grid>
     </div>

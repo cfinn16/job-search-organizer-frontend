@@ -24,8 +24,11 @@ const handleSubmit = (e, props) => {
       console.log(response)
       localStorage.setItem("jwt", response.token)
       props.userCreated()
+      props.history.push('/main')
   })
 }
+
+const URL = 'https://images.unsplash.com/photo-1448387473223-5c37445527e7'
 
 const Signup = (props) => {
 
@@ -38,11 +41,12 @@ const Signup = (props) => {
         bottom: 0,
         left: 0,
         right: 0,
-
+        backgroundImage: `url(${URL})`,
+        backgroundSize: 'cover',
         margin: "auto"
     }}>
-         <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h1' textAlign='center'>
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as='h1' textAlign='center' style={{backgroundColor: "white", paddingBottom: "10px" }}>
           <Image src='https://image.flaticon.com/icons/svg/1535/1535019.svg' />The Next Step
         </Header>
           <Form size='large' onSubmit={(e) => handleSubmit(e, props)}>

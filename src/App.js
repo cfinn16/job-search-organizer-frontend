@@ -44,7 +44,7 @@ class App extends React.Component {
   }
 
   handleNewJobFormClick = () => {
-    this.setState({showNewJobForm: true})
+    this.setState({showNewJobForm: !this.state.showNewJobForm}, () => console.log(this.state))
   }
 
 
