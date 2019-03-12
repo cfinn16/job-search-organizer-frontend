@@ -18,6 +18,14 @@ const jobs = (state = [], action) => {
       return [...state, action.newJob]
     case 'DELETE_JOB':
       return state.filter(job => job.id !== action.id)
+    case 'UPDATE_JOB':
+      return state.map(job => {
+        if (job.id === action.id) {
+          return action.job
+        } else {
+          return job
+        }
+      })
     case 'ADD_TASK':
       return state.map(job => {
         if (job.id === action.id) {
