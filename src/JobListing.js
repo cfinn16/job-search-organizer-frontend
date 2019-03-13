@@ -13,6 +13,12 @@ class JobListing extends React.Component {
 
   handleClick = () => {
     const formattedJob = this.formatDescription(this.props.data.contents)
+    let level
+    if (this.props.data.levels.length > 0) {
+      level = this.props.data.levels[0].name
+    } else {
+      level = ""
+    }
     fetch(`http://localhost:3001/api/v1/jobs/from_listings`, {
       method: 'POST',
 
@@ -23,6 +29,8 @@ class JobListing extends React.Component {
       body: JSON.stringify({
         title: this.props.data.name,
         company: this.props.data.company.name,
+        location: this.props.data.locations[0].name,
+        experience_level: level,
         description: formattedJob,
         user_id: this.props.currentUserId
       })
@@ -57,7 +65,7 @@ class JobListing extends React.Component {
   render(){
     return (
       <div>
-        <div style={{marginBottom: "10px"}}>
+        <div style={{marginBottom: "50px"}}>
           <Card.Content textAlign='center'>
             <div style={{padding: "15px"}}>
               <Card.Header><h2>{this.props.data.name}</h2></Card.Header>
@@ -71,7 +79,7 @@ class JobListing extends React.Component {
           </Card.Content>
         </div>
         <Modal trigger={
-          <div style={{position: "absolute", right: 0, bottom: 0, paddingTop: "10px"}}>
+          <div style={{position: "absolute", right: 0, bottom: 0, marginBottom: "5px"}}>
             <Card.Content extra>
               <Button size="small">See More</Button>
             </Card.Content>

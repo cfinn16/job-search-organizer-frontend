@@ -16,9 +16,9 @@ const postNewJob = (newJob, userId) => {
       body: JSON.stringify({
         title: newJob.title,
         company: newJob.company,
-        years_experience: parseInt(newJob.years_experience),
+        location: newJob.location,
+        experience_level: newJob.experience_level,
         salary: parseInt(newJob.salary),
-        contact_email: newJob.contact_email,
         description: newJob.description
       })
     })
@@ -47,14 +47,14 @@ class NewJobForm extends React.Component {
   state = {
     title: '',
     company: '',
-    years_experience: '',
+    location: '',
+    experience_level: '',
     salary: '',
-    contact_email: '',
     description: '',
   }
 
-  handleChange = (e) => {
-    this.setState({[e.target.dataset.label]: e.target.value})
+  handleChange = (e, data) => {
+    this.setState({[data.name]: e.target.value})
   }
 
   handleSubmit = (e) => {
@@ -63,49 +63,32 @@ class NewJobForm extends React.Component {
     this.setState({
       title: '',
       company: '',
-      years_experience: '',
+      location: '',
+      experience_level: '',
       salary: '',
-      contact_email: '',
       description: '',
     })
+    this.props.close()
   }
 
   render(){
-    console.log(this.props.showNewJobForm)
     return (
-      <div style={{
-        display: this.props.showNewJobForm ? "block" : "none"
-      }}>
-        <div style={{width: "100%", textAlign: "center"}}>
-          <div style={{width: "25%", display: "inline-block"}}>
-            <Form onSubmit={(e) => this.handleSubmit(e)}>
-              <label>
-                Title:
-                <input type="text" data-label="title" onChange={(e) => this.handleChange(e)} value={this.state.title}></input>
-              </label><br/>
-              <label>
-                Company:
-                <input type="text" data-label="company" onChange={(e) => this.handleChange(e)} value={this.state.company}></input>
-              </label><br/>
-              <label>
-                Years of Experience Required:
-                <input type="number" data-label="years_experience" onChange={(e) => this.handleChange(e)} value={this.state.years_experience}></input>
-              </label><br/>
-              <label>
-                Estimated salary:
-                <input type="number" data-label="salary" onChange={(e) => this.handleChange(e)} value={this.state.salary}></input>
-              </label><br/>
-              <label>
-                Contact email:
-                <input type="text" data-label="contact_email" onChange={(e) => this.handleChange(e)} value={this.state.contact_email}></input>
-              </label><br/>
-              <label>
-                Description:
-                <input type="text" data-label="description" onChange={(e) => this.handleChange(e)} value={this.state.description}></input>
-              </label><br/>
-              <input type="submit"></input>
-            </Form>
-          </div>
+      <div style={{padding: "15px"}}>
+        <h2 style={{textAlign: "center"}}>Enter New Job Info</h2>
+        <div style={{padding: "30px"}}>
+          <Form onSubmit={(e) => this.handleSubmit(e)}>
+            <Form.Group inline widths='equal'>
+              <Form.Input fluid label='Title' type='text' name="title" onChange={(e, data) => this.handleChange(e, data)} value={this.state.title} />
+              <Form.Input fluid label='Company' type='text' name="company" onChange={(e, data) => this.handleChange(e, data)} value={this.state.company} />
+            </Form.Group>
+            <Form.Group inline widths='equal'>
+              <Form.Input fluid label='Location' type='text' name="location" onChange={(e, data) => this.handleChange(e, data)} value={this.state.location} />
+              <Form.Input fluid label='Experience Level' type='text' name="experience_level" onChange={(e, data) => this.handleChange(e, data)} value={this.state.experience_level} />
+              <Form.Input fluid label='Estimated Salary' type='number' name="salary" onChange={(e, data) => this.handleChange(e, data)} value={this.state.salary} />
+            </Form.Group>
+            <Form.TextArea label="Description" name="description" onChange={(e, data) => this.handleChange(e, data)} value={this.state.description} />
+            <Form.Button>Submit</Form.Button>
+          </Form>
         </div>
       </div>
     )

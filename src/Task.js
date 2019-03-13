@@ -10,15 +10,16 @@ class Task extends React.Component {
     this.setState({isCompleted: !this.state.isCompleted})
   }
 
-  labelStyle = {
-    textDecoration: this.state.isCompleted ? "line-through": "none",
-    fontStyle: this.state.isCompleted ? "italic": "normal"
-  }
-
   render(){
     return (
       <List.Item>
-        <Checkbox checked={this.state.isCompleted} onChange={this.handleCheck} id={this.props.data.id} label={this.props.data.description} className={this.labelStyle} />
+        <Checkbox checked={this.state.isCompleted}
+        onChange={this.handleCheck}
+        id={this.props.data.id}
+        label={this.props.data.description}
+        style={{
+          textDecoration: this.state.isCompleted ? "line-through": "none"
+        }} />
       </List.Item>
     )
   }

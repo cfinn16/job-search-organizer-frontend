@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import JobsContainer from './JobsContainer.js'
-import NewJobForm from './NewJobForm.js'
 import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
 
@@ -37,7 +36,6 @@ class Main extends Component {
             My Job Board
           </Header>
         </div>
-        <NewJobForm showNewJobForm={this.props.showNewJobForm}/>        
         <JobsContainer />
       </div>
     );
@@ -49,12 +47,5 @@ const mapStateToProps = (state) => {
     currentUserId: state.logIn.currentUserId
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchJobs: (userId) => dispatch({ type: 'LOAD_JOBS', jobs: jobs })
-//   }
-// }
-
 
 export default connect(mapStateToProps, { fetchJobs})(Main)

@@ -2,9 +2,10 @@ import React from 'react';
 import Main from './Main.js';
 import Signup from './Signup.js'
 import Login from './Login.js'
+import NewJobForm from './NewJobForm.js'
 import JobListingsContainer from './JobListingsContainer.js'
 import { connect } from 'react-redux'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Modal } from 'semantic-ui-react'
 import { Route, Switch, Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 
@@ -44,9 +45,12 @@ class App extends React.Component {
   }
 
   handleNewJobFormClick = () => {
-    this.setState({showNewJobForm: !this.state.showNewJobForm}, () => console.log(this.state))
+    this.setState({showNewJobForm: true})
   }
 
+  closeModal = () => {
+    this.setState({showNewJobForm: false})
+  }
 
   handleLogOut = () => {
     localStorage.removeItem("jwt")
@@ -67,8 +71,13 @@ class App extends React.Component {
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
             {window.location.pathname==="/main" &&
-              <Menu.Item onClick={() => this.handleNewJobFormClick()}>Add Job Listing</Menu.Item>
+              <Menu.Item onClick={this.handleNewJobFormClick}>Add Job Listing</Menu.Item>
             }
+            <Modal open={this.state.showNewJobForm} onClose={this.closeModal}>
+              <Modal.Content>
+                <NewJobForm close={this.closeModal}/>
+              </Modal.Content>
+            </Modal>
 
             {this.props.currentUserId &&
               <Menu.Item position='right' onClick={this.handleLogOut}>Log Out</Menu.Item>
@@ -80,7 +89,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/main" render={(props) => <Main {...props} showNewJobForm={this.state.showNewJobForm}/>}/>
+            <Route path="/main" render={(props) => <Main/>}/>
             <Route path="/jobs" component={JobListingsContainer} />
           </Switch>
         </div>
@@ -92,14 +101,15 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     successfulLogIn: state.logIn.successfulLogIn,
-    currentUserId: state.logIn.currentUserId
+    currentUserId: state.logIn.currentUserId,
+    showModal: state.showNewJobForm
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     persistUserId: (id) => dispatch({ type: 'PERSIST_USER_ID', id: id}),
-    logOut: () => dispatch({type: 'LOG_OUT'})
+    logOut: () => dispatch({type: 'LOG_OUT'}),
   }
 }
 
