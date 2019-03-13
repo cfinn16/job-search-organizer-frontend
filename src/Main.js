@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import JobsContainer from './JobsContainer.js'
-import NewJobForm from './NewJobForm.js'
 import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
 
@@ -37,7 +36,6 @@ class Main extends Component {
             My Job Board
           </Header>
         </div>
-        <NewJobForm showNewJobForm={this.props.showNewJobForm}/>        
         <JobsContainer />
       </div>
     );

@@ -73,9 +73,6 @@ class NewJobForm extends React.Component {
   render(){
     console.log(this.props.showNewJobForm)
     return (
-      <div style={{
-        display: this.props.showNewJobForm ? "block" : "none"
-      }}>
         <div style={{width: "100%", textAlign: "center"}}>
           <div style={{width: "25%", display: "inline-block"}}>
             <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -107,7 +104,6 @@ class NewJobForm extends React.Component {
             </Form>
           </div>
         </div>
-      </div>
     )
   }
 }

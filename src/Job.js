@@ -101,7 +101,8 @@ class Job extends React.Component {
             </Modal.Header>
           </Modal.Content>
           <Modal.Content>
-            <h3>Years of Experience Needed: {this.props.data.years_experience}</h3>
+            <h3>Experience: {this.props.data.experience_level}</h3>
+            <h3>{this.props.data.location}</h3>
             <h3 onMouseEnter={this.toggleShowSalaryEditButton} onMouseLeave={this.toggleShowSalaryEditButton}>
               {this.state.showSalaryEditForm ?
                 <form onSubmit={(e) => this.submitNewSalary(e)}>
@@ -117,12 +118,11 @@ class Job extends React.Component {
               <Icon onClick={this.showSalaryEditForm} name="pencil" style={{float: "right"}} />
               }
             </h3>
-            <h3>Contact: {this.props.data.contact_email}</h3>
             <h4>Description: </h4>
             <p>{this.props.data.description}</p>
             <TaskContainer> </TaskContainer>
             <Button negative style={{
-              position: "absolute", right: 0, bottom: 0
+              position: "absolute", right: 0, bottom: 0, marginBottom: "5px"
             }} id={this.props.data.id} onClick={(e) => this.handleDeleteJob(e)}>Remove from board</Button>
           </Modal.Content>
         </Modal>

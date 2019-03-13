@@ -2,9 +2,10 @@ import React from 'react';
 import Main from './Main.js';
 import Signup from './Signup.js'
 import Login from './Login.js'
+import NewJobForm from './NewJobForm.js'
 import JobListingsContainer from './JobListingsContainer.js'
 import { connect } from 'react-redux'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Modal } from 'semantic-ui-react'
 import { Route, Switch, Link } from 'react-router-dom';
 import { withRouter } from 'react-router'
 
@@ -67,7 +68,13 @@ class App extends React.Component {
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
             {window.location.pathname==="/main" &&
-              <Menu.Item onClick={() => this.handleNewJobFormClick()}>Add Job Listing</Menu.Item>
+              <Modal trigger={
+                <Menu.Item>Add Job Listing</Menu.Item>
+              }>
+                <Modal.Content>
+                  <NewJobForm />
+                </Modal.Content>
+              </Modal>
             }
 
             {this.props.currentUserId &&
