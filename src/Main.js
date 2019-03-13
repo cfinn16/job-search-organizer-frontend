@@ -48,11 +48,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchJobs: (userId) => dispatch({ type: 'LOAD_JOBS', jobs: jobs })
-//   }
-// }
-
-
 export default connect(mapStateToProps, { fetchJobs})(Main)

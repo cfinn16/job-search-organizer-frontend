@@ -45,9 +45,12 @@ class App extends React.Component {
   }
 
   handleNewJobFormClick = () => {
-    this.setState({showNewJobForm: !this.state.showNewJobForm}, () => console.log(this.state))
+    this.setState({showNewJobForm: true})
   }
 
+  closeModal = () => {
+    this.setState({showNewJobForm: false})
+  }
 
   handleLogOut = () => {
     localStorage.removeItem("jwt")
@@ -68,14 +71,13 @@ class App extends React.Component {
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
             {window.location.pathname==="/main" &&
-              <Modal trigger={
-                <Menu.Item>Add Job Listing</Menu.Item>
-              }>
-                <Modal.Content>
-                  <NewJobForm />
-                </Modal.Content>
-              </Modal>
+              <Menu.Item onClick={this.handleNewJobFormClick}>Add Job Listing</Menu.Item>
             }
+            <Modal open={this.state.showNewJobForm} onClose={this.closeModal}>
+              <Modal.Content>
+                <NewJobForm close={this.closeModal}/>
+              </Modal.Content>
+            </Modal>
 
             {this.props.currentUserId &&
               <Menu.Item position='right' onClick={this.handleLogOut}>Log Out</Menu.Item>
@@ -87,7 +89,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/main" render={(props) => <Main {...props} showNewJobForm={this.state.showNewJobForm}/>}/>
+            <Route path="/main" render={(props) => <Main/>}/>
             <Route path="/jobs" component={JobListingsContainer} />
           </Switch>
         </div>
@@ -99,14 +101,15 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     successfulLogIn: state.logIn.successfulLogIn,
-    currentUserId: state.logIn.currentUserId
+    currentUserId: state.logIn.currentUserId,
+    showModal: state.showNewJobForm
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     persistUserId: (id) => dispatch({ type: 'PERSIST_USER_ID', id: id}),
-    logOut: () => dispatch({type: 'LOG_OUT'})
+    logOut: () => dispatch({type: 'LOG_OUT'}),
   }
 }
 
