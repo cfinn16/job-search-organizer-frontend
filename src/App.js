@@ -64,13 +64,17 @@ class App extends React.Component {
         <header style={{paddingBottom: "15px"}}>
           {this.props.successfulLogIn &&
           <Menu size="huge">
-            <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
+            {window.location.pathname !== "/jobs" &&
+              <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
+            }
             {this.props.currentUserId ?
-              <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
+              window.location.pathname !== "/main" &&
+                <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
+              
               :
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
             }
-            {window.location.pathname==="/main" &&
+            {window.location.pathname === "/main" &&
               <Menu.Item onClick={this.handleNewJobFormClick}>Add Job Listing</Menu.Item>
             }
             <Modal open={this.state.showNewJobForm} onClose={this.closeModal}>
