@@ -35,7 +35,7 @@ class Job extends React.Component {
   }
 
   handleDeleteJob = (e) => {
-    fetch(`https://the-next-step-api.herokuapp.com//api/v1/jobs/${parseInt(e.target.id)}`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs/${parseInt(e.target.id)}`, {
       method: 'DELETE'
     })
     this.props.deleteJob(parseInt(e.target.id))
@@ -59,7 +59,7 @@ class Job extends React.Component {
   submitNewSalary = (e) => {
     e.preventDefault()
     console.log("Submitting, new salary is:", this.state.newSalary)
-    fetch(`https://the-next-step-api.herokuapp.com//api/v1/jobs/${this.props.selectedJobId}`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs/${this.props.selectedJobId}`, {
       method: 'PATCH',
 
       headers: {

@@ -13,7 +13,7 @@ const columnTarget = {
   drop(props, monitor) {
     const jobId = monitor.getItem().jobId
     store.dispatch({type: 'DRAG_JOB', jobId: jobId, column: props.label})
-    fetch(`https://the-next-step-api.herokuapp.com//api/v1/user_jobs/with_user/1/with_job/${jobId}`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/user_jobs/with_user/1/with_job/${jobId}`, {
       method: 'PATCH',
 
       headers: {
