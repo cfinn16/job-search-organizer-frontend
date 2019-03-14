@@ -25,7 +25,12 @@ class App extends React.Component {
       .then(res => res.json())
       .then(user => {
         this.props.persistUserId(user.id)
+        if (window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname === '/') {
+          this.props.history.push('/main')
+        }
       })
+    } else {
+      this.props.history.push('/login')
     }
   }
 
@@ -66,6 +71,7 @@ class App extends React.Component {
           <Menu size="huge">
             <Menu.Item as={Link} to='/jobs'>Browse Jobs</Menu.Item>
             {this.props.currentUserId ?
+              window.location.pathname !== "/main" &&
               <Menu.Item as={Link} to='/main'>My Board</Menu.Item>
               :
               <Menu.Item as={Link} to='/login'>Log In</Menu.Item>
