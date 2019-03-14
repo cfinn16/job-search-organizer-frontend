@@ -6,7 +6,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 const handleSubmit = (e, props) => {
   e.preventDefault()
   console.log("In Signup handleSubmit", props)
-  fetch('http://localhost:3001/api/v1/users', {
+  fetch('https://the-next-step-api.herokuapp.com//api/v1/users', {
     method: 'POST',
 
     headers: {

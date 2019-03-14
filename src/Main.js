@@ -8,7 +8,7 @@ import { Header } from 'semantic-ui-react'
 const fetchJobs = (userId) => {
   return function(dispatch) {
 
-    fetch(`http://localhost:3001/api/v1/users/${userId}`)
+    fetch(`https://the-next-step-api.herokuapp.com//api/v1/users/${userId}`)
     .then(r => r.json())
     .then(data => {
       dispatch({type: 'LOAD_JOBS', jobs: data.jobs})
