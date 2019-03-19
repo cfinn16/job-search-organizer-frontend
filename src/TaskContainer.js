@@ -19,8 +19,7 @@ class TaskContainer extends React.Component {
   }
 
 
-  postNewTask = (newTask, jobId) => {
-    console.log("In postNewTask:", newTask, jobId)
+  postNewTask = (newTask, jobId, currentUserId) => {
     fetch(`http://localhost:3001/api/v1/tasks`, {
       method: 'POST',
 
@@ -31,7 +30,7 @@ class TaskContainer extends React.Component {
       body: JSON.stringify({
         description: newTask,
         job_id: jobId,
-        is_completed: false
+        user_id: currentUserId
       })
     })
     .then(res => res.json())
@@ -42,7 +41,7 @@ class TaskContainer extends React.Component {
 
   handleNewTaskSubmit = (e) => {
     e.preventDefault()
-    this.postNewTask(this.state.newTask, this.props.selectedJobId)
+    this.postNewTask(this.state.newTask, this.props.selectedJobId, this.props.currentUserId)
     this.setState({
       showNewTaskForm: false,
       newTask: ''
@@ -75,7 +74,8 @@ class TaskContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedJob: state.jobs.find(job => job.id === state.selectedJobId),
-    selectedJobId: state.selectedJobId
+    selectedJobId: state.selectedJobId,
+    currentUserId: state.logIn.currentUserId
   }
 }
 
