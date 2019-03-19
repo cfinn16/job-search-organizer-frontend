@@ -19,7 +19,7 @@ class JobListing extends React.Component {
     } else {
       level = ""
     }
-    fetch(`http://localhost:3001/api/v1/jobs/from_listings`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs/from_listings`, {
       method: 'POST',
 
       headers: {
@@ -42,7 +42,7 @@ class JobListing extends React.Component {
         alert(postedJob.errors)
       } else if (!postedJob.user_id) {
         this.props.addJob(postedJob)
-        fetch(`http://localhost:3001/api/v1/user_jobs`, {
+        fetch(`https://the-next-step-api.herokuapp.com/api/v1/user_jobs`, {
           method: 'POST',
 
           headers: {
