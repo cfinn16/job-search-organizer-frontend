@@ -44,7 +44,7 @@ class JobColumn extends React.Component {
         width: "16%",
         minWidth:"300px",
         textAlign: "center",
-        paddingBottom: this.props.jobs < 5 ? "500px" : "20px",
+        paddingBottom: this.props.jobs.length < 5 ? "500px" : "20px",
         backgroundColor: isOver ? "#0033c7" : "#cde8f6"
       }}>
         <h1 style={{paddingTop: "10px"}}>{this.props.label}</h1>

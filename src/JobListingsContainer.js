@@ -7,7 +7,8 @@ class JobListingsContainer extends React.Component {
     searchedJobs: [],
     category: "Engineering",
     location: "New%20York%20City%2C%20NY",
-    pageNum: 1
+    pageNum: 1,
+    hasSearched: false
   }
 
   handleCategorySelect = (e, data) => {
@@ -20,10 +21,14 @@ class JobListingsContainer extends React.Component {
 
   updateSearch = (e) => {
     e.preventDefault()
-    fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=${this.state.pageNum}`)
+    fetch(`https://www.themuse.com/api/public/jobs?category=${this.state.category}&location=${this.state.location}&page=1`)
     .then(res => res.json())
     .then(response => {
-      this.setState({searchedJobs: response.results})
+      this.setState({
+        searchedJobs: response.results,
+        hasSearched: true,
+        pageNum: 1
+      })
     })
   }
 
@@ -89,20 +94,24 @@ class JobListingsContainer extends React.Component {
           </Form>
         </div>
         <div style={{padding: "25px 50px", borderColor: "#0033c7"}}>
-          <Card.Group itemsPerRow={5}>
-            {this.state.searchedJobs.map(job => {
-              return(
-                <Card key={job.id} raised>
-                  <JobListing data={job}></JobListing>
-                </Card>
-              )
-            })}
-          </Card.Group>
+          {this.state.searchedJobs.length > 1 ?
+            <Card.Group itemsPerRow={5}>
+              {this.state.searchedJobs.map(job => {
+                return(
+                  <Card key={job.id} raised>
+                    <JobListing data={job}></JobListing>
+                  </Card>
+                )
+              })}
+            </Card.Group>
+            : this.state.hasSearched &&
+            <h2 style={{textAlign: "center"}}>No results found! Try another search</h2>
+          }
         </div>
           {this.state.searchedJobs.length === 20 &&
               <Button size="large" primary onClick={() => this.nextPage()} style={{position: "absolute", right: "0px", marginRight: "50px"}}>More Results <Icon name="arrow right" /></Button>
           }
-          {this.state.pageNum > 1 &&
+          {(this.state.pageNum > 1 && this.state.searchedJobs.length > 0) &&
               <Button size="large" secondary onClick={() => this.prevPage()} style={{position: "absolute", left: "0px", marginLeft: "50px"}}><Icon name="arrow left" /> Previous Results </Button>
           }
       </div>
