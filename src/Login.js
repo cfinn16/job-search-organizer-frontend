@@ -6,7 +6,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 
 const handleSubmit = (e, props) => {
   e.preventDefault()
-    fetch('https://the-next-step-api.herokuapp.com/api/v1/users/login', {
+    fetch('http://localhost:3001/api/v1/users/login', {
       method: 'POST',
 
       headers: {

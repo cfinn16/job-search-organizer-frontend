@@ -21,7 +21,7 @@ class TaskContainer extends React.Component {
 
   postNewTask = (newTask, jobId) => {
     console.log("In postNewTask:", newTask, jobId)
-    fetch(`https://the-next-step-api.herokuapp.com/api/v1/tasks`, {
+    fetch(`http://localhost:3001/api/v1/tasks`, {
       method: 'POST',
 
       headers: {
@@ -30,7 +30,8 @@ class TaskContainer extends React.Component {
       },
       body: JSON.stringify({
         description: newTask,
-        job_id: jobId
+        job_id: jobId,
+        is_completed: false
       })
     })
     .then(res => res.json())
@@ -41,8 +42,6 @@ class TaskContainer extends React.Component {
 
   handleNewTaskSubmit = (e) => {
     e.preventDefault()
-    console.log("props", this.props)
-    console.log("state", this.state)
     this.postNewTask(this.state.newTask, this.props.selectedJobId)
     this.setState({
       showNewTaskForm: false,

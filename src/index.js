@@ -42,6 +42,21 @@ const jobs = (state = [], action) => {
           return job
         }
       })
+    case 'TOGGLE_TASK':
+      console.log(action)
+      return state.map(job => {
+        if (job.id === action.jobId) {
+          return {...job, tasks: job.tasks.map(task => {
+            if (task.id === action.task.id) {
+              return action.task
+            } else {
+              return task
+            }
+          })}
+        } else {
+          return job
+        }
+      })
     default:
       return state
   }
