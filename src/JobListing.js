@@ -37,11 +37,11 @@ class JobListing extends React.Component {
     })
     .then(res => res.json())
     .then(postedJob => {
-      console.log(postedJob)
       if (postedJob.errors) {
         alert(postedJob.errors)
       } else if (!postedJob.user_id) {
         this.props.addJob(postedJob)
+        console.log("In add job:", this.props.currentUserId, postedJob.id)
         fetch(`http://localhost:3001/api/v1/user_jobs`, {
           method: 'POST',
 

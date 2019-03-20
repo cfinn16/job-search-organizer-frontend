@@ -19,7 +19,7 @@ class Task extends React.Component {
     })
     .then(res => res.json())
     .then(updatedTask => {
-      this.props.toggleTask(this.props.selectedJobId, updatedTask)
+      this.props.toggleTask(updatedTask)
     })
   }
 
@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleTask: (jobId, task) => dispatch({type: 'TOGGLE_TASK', jobId: jobId, task: task})
+    toggleTask: (task) => dispatch({type: 'TOGGLE_TASK', task: task})
   }
 }
 

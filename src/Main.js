@@ -8,10 +8,15 @@ import { Header } from 'semantic-ui-react'
 const fetchJobs = (userId) => {
   return function(dispatch) {
 
-    fetch(`http://localhost:3001/api/v1/users/${userId}`)
+    fetch(`http://localhost:3001/api/v1/users/${userId}`, {
+      headers: {
+        "Authorization": localStorage.getItem("jwt")
+      }
+    })
     .then(r => r.json())
     .then(data => {
       dispatch({type: 'LOAD_JOBS', jobs: data.jobs})
+      dispatch({type: 'LOAD_TASKS', tasks: data.tasks})
     })
   }
 }
