@@ -5,7 +5,7 @@ import { List, Checkbox } from 'semantic-ui-react'
 class Task extends React.Component {
 
   handleCheck = () => {
-    fetch(`http://localhost:3001/api/v1/tasks/${this.props.data.id}`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/tasks/${this.props.data.id}`, {
       method: 'PATCH',
 
       headers: {

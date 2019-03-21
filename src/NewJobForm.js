@@ -6,7 +6,7 @@ const postNewJob = (newJob, userId) => {
   console.log("newJob info", newJob)
   return function(dispatch) {
 
-    fetch(`http://localhost:3001/api/v1/jobs`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs`, {
       method: 'POST',
 
       headers: {
@@ -26,7 +26,7 @@ const postNewJob = (newJob, userId) => {
     .then(postedJob => {
       console.log(postedJob)
       dispatch({ type: 'ADD_NEW_JOB', newJob: postedJob})
-      fetch(`http://localhost:3001/api/v1/user_jobs`, {
+      fetch(`https://the-next-step-api.herokuapp.com/api/v1/user_jobs`, {
         method: 'POST',
 
         headers: {

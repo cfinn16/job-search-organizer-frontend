@@ -20,7 +20,7 @@ class TaskContainer extends React.Component {
 
 
   postNewTask = (newTask, jobId, currentUserId) => {
-    fetch(`http://localhost:3001/api/v1/tasks`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/tasks`, {
       method: 'POST',
 
       headers: {
