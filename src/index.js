@@ -26,14 +26,6 @@ const jobs = (state = [], action) => {
           return job
         }
       })
-    case 'ADD_TASK':
-      return state.map(job => {
-        if (job.id === action.id) {
-          return {...job, tasks: [...job.tasks, action.postedTask]}
-        } else {
-          return job
-        }
-      })
     case 'DRAG_JOB':
       return state.map(job => {
         if (job.id === action.jobId) {
@@ -46,6 +38,27 @@ const jobs = (state = [], action) => {
       return state
   }
 }
+
+const tasks = (state = [], action) => {
+  switch(action.type) {
+    case 'LOAD_TASKS':
+      return action.tasks
+    case 'ADD_TASK':
+      return [...state, action.postedTask]
+    case 'TOGGLE_TASK':
+      console.log(action)
+      return state.map(task => {
+        if (task.id === action.task.id) {
+          return action.task
+        } else {
+          return task
+        }
+      })
+    default:
+      return state
+  }
+}
+
 
 const selectedJobId = (state = 0, action) => {
   switch(action.type) {
@@ -103,6 +116,7 @@ const logIn = (state = {
 
 const reducer = combineReducers({
   jobs,
+  tasks,
   selectedJobId,
   logIn
 })

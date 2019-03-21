@@ -58,7 +58,6 @@ class Job extends React.Component {
 
   submitNewSalary = (e) => {
     e.preventDefault()
-    console.log("Submitting, new salary is:", this.state.newSalary)
     fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs/${this.props.selectedJobId}`, {
       method: 'PATCH',
 

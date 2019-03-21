@@ -19,8 +19,7 @@ class TaskContainer extends React.Component {
   }
 
 
-  postNewTask = (newTask, jobId) => {
-    console.log("In postNewTask:", newTask, jobId)
+  postNewTask = (newTask, jobId, currentUserId) => {
     fetch(`https://the-next-step-api.herokuapp.com/api/v1/tasks`, {
       method: 'POST',
 
@@ -30,7 +29,8 @@ class TaskContainer extends React.Component {
       },
       body: JSON.stringify({
         description: newTask,
-        job_id: jobId
+        job_id: jobId,
+        user_id: currentUserId,
       })
     })
     .then(res => res.json())
@@ -41,9 +41,7 @@ class TaskContainer extends React.Component {
 
   handleNewTaskSubmit = (e) => {
     e.preventDefault()
-    console.log("props", this.props)
-    console.log("state", this.state)
-    this.postNewTask(this.state.newTask, this.props.selectedJobId)
+    this.postNewTask(this.state.newTask, this.props.selectedJobId, this.props.currentUserId)
     this.setState({
       showNewTaskForm: false,
       newTask: ''
@@ -55,7 +53,7 @@ class TaskContainer extends React.Component {
         <>
         <h2>To-Dos</h2>
         <List style={{listStyle: "none"}}>
-          {this.props.selectedJob.tasks.map(task => {
+          {this.props.tasks.filter(task => task.job_id === this.props.selectedJobId).map(task => {
             return <Task key={task.id} data={task}></Task>
           })}
         </List>
@@ -76,13 +74,15 @@ class TaskContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     selectedJob: state.jobs.find(job => job.id === state.selectedJobId),
-    selectedJobId: state.selectedJobId
+    selectedJobId: state.selectedJobId,
+    currentUserId: state.logIn.currentUserId,
+    tasks: state.tasks
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    newTask: (newTask, id) => dispatch({ type: 'ADD_TASK', postedTask: newTask, id: id})
+    newTask: (newTask) => dispatch({ type: 'ADD_TASK', postedTask: newTask})
   }
 }
 
