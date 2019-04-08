@@ -4,7 +4,6 @@ import JobsContainer from './JobsContainer.js'
 import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
 
-// Action Creator with Thunk
 const fetchJobs = (userId) => {
   return function(dispatch) {
 

@@ -55,7 +55,6 @@ class JobListingsContainer extends React.Component {
   }
 
   render(){
-    console.log(this.state.searchedJobs)
     return (
       <div style={{backgroundColor: "#eeeeee", padding: "0 15px"}}>
         <h1 style={{textAlign: "center", fontSize: "250%", paddingTop: "15px"}}>
