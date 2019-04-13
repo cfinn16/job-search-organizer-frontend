@@ -35,7 +35,7 @@ class Job extends React.Component {
   }
 
   handleDeleteJob = (e) => {
-    fetch(`https://the-next-step-api.herokuapp.com/api/v1/jobs/${parseInt(e.target.id)}`, {
+    fetch(`https://the-next-step-api.herokuapp.com/api/v1/user_jobs/with_user/${this.props.currentUserId}/with_job/${parseInt(e.target.id)}`, {
       method: 'DELETE'
     })
     this.props.deleteJob(parseInt(e.target.id))
@@ -133,7 +133,8 @@ class Job extends React.Component {
 const mapStateToProps = (state) => {
   return {
     jobs: state.jobs,
-    selectedJobId: state.selectedJobId
+    selectedJobId: state.selectedJobId,
+    currentUserId: state.logIn.currentUserId
   }
 }
 
