@@ -41,7 +41,6 @@ class JobListing extends React.Component {
         alert(postedJob.errors)
       } else if (!postedJob.user_id) {
         this.props.addJob(postedJob)
-        console.log("In add job:", this.props.currentUserId, postedJob.id)
         fetch(`https://the-next-step-api.herokuapp.com/api/v1/user_jobs`, {
           method: 'POST',
 
