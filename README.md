@@ -10,8 +10,8 @@ This repository welcomes contributions, so feel free to submit a pull request!
 
 ## Instructions
 
-1. Clone the repository by running `git clone git@github.com:cfinn16/intramural-sports-project.git`
-2. `cd intramural-sports-project`
+1. Clone the repository by running `git clone git@github.com:cfinn16/job-search-organizer-frontend.git`
+2. `cd job-search-organizer-frontend`
 3. `npm install` to install necessary dependencies
 4. `npm start` to open up the app.
 
