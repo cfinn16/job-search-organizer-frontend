@@ -4,6 +4,7 @@ import Signup from './Signup.js'
 import Login from './Login.js'
 import NewJobForm from './NewJobForm.js'
 import JobListingsContainer from './JobListingsContainer.js'
+import TaskListContainer from './TaskListContainer.js'
 import { connect } from 'react-redux'
 import { Menu, Modal } from 'semantic-ui-react'
 import { Route, Switch, Link } from 'react-router-dom';
@@ -99,6 +100,7 @@ class App extends React.Component {
             <Route path="/signup" component={Signup} />
             <Route path="/main" render={(props) => <Main/>}/>
             <Route path="/jobs" component={JobListingsContainer} />
+            <Route path="/tasks" component={TaskListContainer} />
           </Switch>
         </div>
       </div>
